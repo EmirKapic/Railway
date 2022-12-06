@@ -1,11 +1,10 @@
 package ba.unsa.etf.rpr;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
 
 public class Departures {
-    public Departures(int departureID, Date startDate, Date endDate, String length, int ticketsLeft, String startStation, String endStation, int ticketsTotal) {
+    public Departures(int departureID, Date startDate, Date endDate, String length, int ticketsLeft, TrainStations startStation, TrainStations endStation, int ticketsTotal) {
         DepartureID = departureID;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -70,19 +69,19 @@ public class Departures {
         this.ticketsLeft = ticketsLeft;
     }
 
-    public String getStartStation() {
+    public TrainStations getStartStation() {
         return startStation;
     }
 
-    public void setStartStation(String startStation) {
+    public void setStartStation(TrainStations startStation) {
         this.startStation = startStation;
     }
 
-    public String getEndStation() {
+    public TrainStations getEndStation() {
         return endStation;
     }
 
-    public void setEndStation(String endStation) {
+    public void setEndStation(TrainStations endStation) {
         this.endStation = endStation;
     }
 
@@ -99,8 +98,8 @@ public class Departures {
     private Date endDate;
     private String length;
     private int ticketsLeft;
-    private String startStation;
-    private String endStation;
+    private TrainStations startStation;
+    private TrainStations endStation;
     private int ticketsTotal;
 
     @Override
