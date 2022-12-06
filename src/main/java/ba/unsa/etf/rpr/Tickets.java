@@ -5,14 +5,14 @@ import java.util.Objects;
 public class Tickets {
     private int ticketID;
     private int price;
-    private int DepartureID;
+    private Departures dep;
 
     @Override
     public String toString() {
         return "Tickets{" +
                 "ticketID=" + ticketID +
                 ", price=" + price +
-                ", DepartureID=" + DepartureID +
+                ", DepartureID=" + dep +
                 '}';
     }
 
@@ -27,7 +27,7 @@ public class Tickets {
 
     @Override
     public int hashCode() {
-        return Objects.hash(ticketID, price, DepartureID);
+        return Objects.hash(ticketID, price, dep);
     }
 
     public int getTicketID() {
@@ -47,16 +47,16 @@ public class Tickets {
     }
 
     public int getDepartureID() {
-        return DepartureID;
+        return dep.getDepartureID();
     }
 
     public void setDepartureID(int departureID) {
-        DepartureID = departureID;
+        dep.setDepartureID(departureID);
     }
 
-    public Tickets(int ticketID, int price, int departureID) {
+    public Tickets(int ticketID, int price, Departures departureID) {
         this.ticketID = ticketID;
         this.price = price;
-        DepartureID = departureID;
+        this.dep = departureID;
     }
 }
