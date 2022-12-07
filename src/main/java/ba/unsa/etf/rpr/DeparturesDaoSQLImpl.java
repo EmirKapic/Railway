@@ -3,6 +3,7 @@ package ba.unsa.etf.rpr;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -43,8 +44,8 @@ public class DeparturesDaoSQLImpl implements DeparturesDao{
 
             Departures dep = new Departures();
             dep.setDepartureID(result.getInt(1));
-            dep.setStartDate(result.getDate(2));
-            dep.setEndDate(result.getDate(3));
+            dep.setStartDate(result.getObject(2, LocalDateTime.class));
+            dep.setEndDate(result.getObject(3, LocalDateTime.class));
             dep.setLength(result.getString(4));
             dep.setTicketsLeft(result.getInt(5));
             dep.setStartStationID(result.getInt(6));
@@ -71,6 +72,21 @@ public class DeparturesDaoSQLImpl implements DeparturesDao{
 
     @Override
     public Departures add(Departures item) {
+        String query = "insert into Departures(DeparturesID, Start_date, End_date, Length, Tickets_left, Start_station_ID, End_station_ID, Tickets_total) values ((SELECT (MAX(d.DeparturesID) + 1) FROM Departures d), ?, ?, ?, ?, ?, ?,?)";
+        try {
+            PreparedStatement statement = this.connection.prepareStatement(query);
+            statement.setObject(1, item.getStartDate());
+            statement.setObject(2, item.getEndDate());
+            statement.setTime(3, Time.valueOf(item.getLength()));
+            statement.setInt(4, item.getTicketsLeft());
+            statement.setInt(5,item.getStartStationID());
+            statement.setInt(6,item.getEndStationID());
+            statement.setInt(7,item.getTicketsTotal());
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         return null;
     }
 
