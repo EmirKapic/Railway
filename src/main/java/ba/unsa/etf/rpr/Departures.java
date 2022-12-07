@@ -1,7 +1,6 @@
 package ba.unsa.etf.rpr;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Objects;
 
 public class Departures {
@@ -11,6 +10,14 @@ public class Departures {
 
     public String getStartTime() {
         return startTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Departures that = (Departures) o;
+        return departureID == that.departureID;
     }
 
     public void setStartTime(String startTime) {
