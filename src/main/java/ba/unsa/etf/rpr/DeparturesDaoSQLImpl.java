@@ -114,6 +114,15 @@ public class DeparturesDaoSQLImpl implements DeparturesDao{
 
     @Override
     public Departures delete(Departures item) {
+        String query = "DELETE FROM Departures WHERE DeparturesID = ?";
+        try {
+            PreparedStatement statement = this.connection.prepareStatement(query);
+            statement.setInt(1,item.getDepartureID());
+            statement.executeUpdate();
+            return item;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         return null;
     }
 
