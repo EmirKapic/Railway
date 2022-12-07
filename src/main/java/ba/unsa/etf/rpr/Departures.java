@@ -4,6 +4,10 @@ import java.util.Date;
 import java.util.Objects;
 
 public class Departures {
+
+    public Departures() {
+    }
+
     public Departures(int departureID, Date startDate, Date endDate, String length, int ticketsLeft, TrainStations startStation, TrainStations endStation, int ticketsTotal) {
         DepartureID = departureID;
         this.startDate = startDate;

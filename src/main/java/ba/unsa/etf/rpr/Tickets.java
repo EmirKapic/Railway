@@ -15,6 +15,9 @@ public class Tickets {
                 ", DepartureID=" + dep +
                 '}';
     }
+    public Tickets(){
+
+    }
 
     @Override
     public boolean equals(Object o) {

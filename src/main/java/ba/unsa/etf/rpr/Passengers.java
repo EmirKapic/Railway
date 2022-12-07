@@ -3,6 +3,9 @@ package ba.unsa.etf.rpr;
 import java.util.Objects;
 
 public class Passengers {
+    public Passengers(){
+
+    }
     private String name;
     private String surname;
     private int PassengerID;

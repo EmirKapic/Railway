@@ -6,6 +6,10 @@ public class TrainStations {
     private int trainStationID;
     private String location;
 
+    public TrainStations(){
+
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
