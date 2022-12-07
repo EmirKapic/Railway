@@ -83,6 +83,7 @@ public class DeparturesDaoSQLImpl implements DeparturesDao{
             statement.setInt(6,item.getEndStationID());
             statement.setInt(7,item.getTicketsTotal());
             statement.executeUpdate();
+            return item;
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -92,6 +93,22 @@ public class DeparturesDaoSQLImpl implements DeparturesDao{
 
     @Override
     public Departures update(Departures item) {
+        String query = "UPDATE Departures d SET Start_date = ?, End_date = ?, Length = ?, Tickets_left = ?, Start_station_ID = ?, End_station_ID = ?, Tickets_total = ? WHERE d.DeparturesID = ?";
+        try {
+            PreparedStatement statement = this.connection.prepareStatement(query);
+            statement.setObject(1, item.getStartDate());
+            statement.setObject(2, item.getEndDate());
+            statement.setTime(3, Time.valueOf(item.getLength()));
+            statement.setInt(4, item.getTicketsLeft());
+            statement.setInt(5,item.getStartStationID());
+            statement.setInt(6,item.getEndStationID());
+            statement.setInt(7,item.getTicketsTotal());
+            statement.setInt(8,item.getDepartureID());
+            statement.executeUpdate();
+            return item;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
         return null;
     }
 
