@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -33,7 +34,7 @@ public class DeparturesDaoSQLImpl implements DeparturesDao{
      */
     @Override
     public Departures getById(int id) {
-        String query = "SELECT * FROM Departures d WHERE d.DeparturesID = ?"; //First query, gets everything except start/end time (which requires a different format of query)
+        String query = "SELECT * FROM Departures d WHERE d.DeparturesID = ?";
         try {
             //Connects to the database
             PreparedStatement statement = this.connection.prepareStatement(query);
@@ -51,17 +52,8 @@ public class DeparturesDaoSQLImpl implements DeparturesDao{
             dep.setStartStationID(result.getInt(6));
             dep.setEndStationID(result.getInt(7));
             dep.setTicketsTotal(result.getInt(8));
-
-            //Now we need start and end time
-            query = "SELECT DATE_FORMAT(d.Start_date, '%H:%i'), DATE_FORMAT(d.End_date, '%H:%i') FROM Departures d WHERE d.DeparturesID = ?";
-            statement = this.connection.prepareStatement(query);
-            statement.setInt(1,id);
-            result = statement.executeQuery();
-
-            if (!result.next())return null;
-            dep.setStartTime(result.getString(1));
-            dep.setEndTime(result.getString(2));
-
+            dep.setStartTime(dep.getStartDate().toString().split("T")[1]);
+            dep.setEndTime(dep.getEndDate().toString().split("T")[1]);
             return dep;
 
         } catch (SQLException e) {
@@ -128,6 +120,30 @@ public class DeparturesDaoSQLImpl implements DeparturesDao{
 
     @Override
     public List<Departures> getAll() {
+        String query = "SELECT * FROM Departures";
+        try{
+            PreparedStatement statement = this.connection.prepareStatement(query);
+            ResultSet result = statement.executeQuery();
+            List<Departures> list = new ArrayList<>();
+            while (result.next()){
+                Departures dep = new Departures();
+                dep.setDepartureID(result.getInt(1));
+                dep.setStartDate(result.getObject(2, LocalDateTime.class));
+                dep.setEndDate(result.getObject(3, LocalDateTime.class));
+                dep.setLength(result.getString(4));
+                dep.setTicketsLeft(result.getInt(5));
+                dep.setStartStationID(result.getInt(6));
+                dep.setEndStationID(result.getInt(7));
+                dep.setTicketsTotal(result.getInt(8));
+                dep.setStartTime(dep.getStartDate().toString().split("T")[1]);
+                dep.setEndTime(dep.getEndDate().toString().split("T")[1]);
+                list.add(dep);
+            }
+            return list;
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+        }
         return null;
     }
 
