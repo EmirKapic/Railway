@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Tickets {
     private int ticketID;
     private int price;
-    private Departures dep;
+    private int dep;
 
     @Override
     public String toString() {
@@ -50,14 +50,14 @@ public class Tickets {
     }
 
     public int getDepartureID() {
-        return dep.getDepartureID();
+        return dep;
     }
 
     public void setDepartureID(int departureID) {
-        dep.setDepartureID(departureID);
+        this.dep = departureID;
     }
 
-    public Tickets(int ticketID, int price, Departures departureID) {
+    public Tickets(int ticketID, int price, int departureID) {
         this.ticketID = ticketID;
         this.price = price;
         this.dep = departureID;
