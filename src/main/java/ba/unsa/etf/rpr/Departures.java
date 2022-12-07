@@ -107,15 +107,7 @@ public class Departures {
     private int ticketsTotal;
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Departures that = (Departures) o;
-        return DepartureID == that.DepartureID;
-    }
-
-    @Override
     public int hashCode() {
-        return Objects.hash(DepartureID, startDate, endDate, length, ticketsLeft, startStation, endStation, ticketsTotal);
+        return Objects.hash(DepartureID,startDate,endDate,length,ticketsLeft,ticketsTotal, startStation, endStation);
     }
 }
