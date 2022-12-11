@@ -34,6 +34,7 @@ public class TicketsDaoSQLImpl implements TicketsDao{
             p.setTicketID(result.getInt(1));
             p.setPrice(result.getInt(2));
             p.setDepartureID(result.getInt(3));
+            p.setPassengerID(result.getInt(4));
             return p;
 
         } catch (SQLException e) {
@@ -44,11 +45,12 @@ public class TicketsDaoSQLImpl implements TicketsDao{
 
     @Override
     public Tickets add(Tickets item) {
-        String query = "insert into Tickets(TicketID, Price, Departure_ID) values ((SELECT (MAX(d.TicketID) + 1) FROM Tickets d), ?, ?)";
+        String query = "insert into Tickets(TicketID, Price, Departure_ID, Passenger_ID) values ((SELECT (MAX(d.TicketID) + 1) FROM Tickets d), ?, ?, ?)";
         try {
             PreparedStatement statement = this.connection.prepareStatement(query);
             statement.setInt(1,item.getPrice());
             statement.setInt(2,item.getDepartureID());
+            statement.setInt(3,item.getPassengerID());
             statement.executeUpdate();
             return item;
 
@@ -60,12 +62,13 @@ public class TicketsDaoSQLImpl implements TicketsDao{
 
     @Override
     public Tickets update(Tickets item) {
-        String query = "UPDATE Tickets d SET Price = ?, Departure_ID = ? WHERE d.TicketID = ?";
+        String query = "UPDATE Tickets d SET Price = ?, Departure_ID = ?, Passenger_ID = ? WHERE d.TicketID = ?";
         try {
             PreparedStatement statement = this.connection.prepareStatement(query);
             statement.setInt(1,item.getPrice());
             statement.setInt(2,item.getDepartureID());
-            statement.setInt(3,item.getTicketID());
+            statement.setInt(3,item.getPassengerID());
+            statement.setInt(4,item.getTicketID());
             statement.executeUpdate();
             return item;
         } catch (SQLException e) {
@@ -101,6 +104,7 @@ public class TicketsDaoSQLImpl implements TicketsDao{
                 p.setTicketID(result.getInt(1));
                 p.setPrice(result.getInt(2));
                 p.setDepartureID(result.getInt(3));
+                p.setPassengerID(result.getInt(4));
                 list.add(p);
             }
             return list;
@@ -112,11 +116,11 @@ public class TicketsDaoSQLImpl implements TicketsDao{
 
 
     @Override
-    public List<Tickets> getByDeparture(Departures dep) {
+    public List<Tickets> getByDeparture(int dep) {
         String query = "SELECT * FROM Tickets t WHERE t.Departure_ID = ?";
         try {
             PreparedStatement statement = this.connection.prepareStatement(query);
-            statement.setInt(1,dep.getDepartureID());
+            statement.setInt(1,dep);
             ResultSet result = statement.executeQuery();
             List<Tickets> list = new ArrayList<>();
             while(result.next()){
@@ -124,6 +128,7 @@ public class TicketsDaoSQLImpl implements TicketsDao{
                 p.setTicketID(result.getInt(1));
                 p.setPrice(result.getInt(2));
                 p.setDepartureID(result.getInt(3));
+                p.setPassengerID(result.getInt(4));
                 list.add(p);
             }
             return list;
