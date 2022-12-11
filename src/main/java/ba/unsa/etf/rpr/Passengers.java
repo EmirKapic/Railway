@@ -10,6 +10,7 @@ public class Passengers {
     private String surname;
     private int PassengerID;
     private int TicketID;
+    private String password;
 
     @Override
     public boolean equals(Object o) {
@@ -66,10 +67,19 @@ public class Passengers {
         TicketID = ticketID;
     }
 
-    public Passengers(String name, String surname, int passengerID, int ticketID) {
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Passengers(String name, String surname, int passengerID, int ticketID, String password) {
         this.name = name;
         this.surname = surname;
         PassengerID = passengerID;
         TicketID = ticketID;
+        this.password=password;
     }
 }
