@@ -6,6 +6,7 @@ public class Tickets {
     private int ticketID;
     private int price;
     private int dep;
+    private int passengerID;
 
     @Override
     public String toString() {
@@ -26,6 +27,22 @@ public class Tickets {
         if (o == null || getClass() != o.getClass()) return false;
         Tickets tickets = (Tickets) o;
         return ticketID == tickets.ticketID;
+    }
+
+    public int getPassengerID() {
+        return passengerID;
+    }
+
+    public void setPassengerID(int passengerID) {
+        this.passengerID = passengerID;
+    }
+
+    public int getDep() {
+        return dep;
+    }
+
+    public void setDep(int dep) {
+        this.dep = dep;
     }
 
     @Override
@@ -57,9 +74,10 @@ public class Tickets {
         this.dep = departureID;
     }
 
-    public Tickets(int ticketID, int price, int departureID) {
+    public Tickets(int ticketID, int price, int departureID, int passengerID) {
         this.ticketID = ticketID;
         this.price = price;
         this.dep = departureID;
+        this.passengerID = passengerID;
     }
 }
