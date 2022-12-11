@@ -84,6 +84,7 @@ public class Passengers {
         this.password = password;
     }
 
+
     public Passengers(String name, String surname, int passengerID, int ticketID, String password, String username) {
         this.name = name;
         this.surname = surname;
