@@ -11,6 +11,15 @@ public class Passengers {
     private int PassengerID;
     private int TicketID;
     private String password;
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -75,11 +84,12 @@ public class Passengers {
         this.password = password;
     }
 
-    public Passengers(String name, String surname, int passengerID, int ticketID, String password) {
+    public Passengers(String name, String surname, int passengerID, int ticketID, String password, String username) {
         this.name = name;
         this.surname = surname;
         PassengerID = passengerID;
         TicketID = ticketID;
         this.password=password;
+        this.username = username;
     }
 }
