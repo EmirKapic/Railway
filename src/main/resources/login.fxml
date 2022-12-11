@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="116.0" prefWidth="384.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="116.0" prefWidth="384.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.Login">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="277.0" minWidth="10.0" prefWidth="175.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="218.0" minWidth="10.0" prefWidth="209.0" />
@@ -28,7 +28,7 @@
          <padding>
             <Insets left="15.0" />
          </padding></Label>
-      <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="370.0" text="Login" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2">
+      <Button mnemonicParsing="false" onAction="#loginButtonClick" prefHeight="25.0" prefWidth="370.0" text="Login" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="5.0" />
          </GridPane.margin></Button>
@@ -38,7 +38,7 @@
          </padding>
       </Label>
       <Button mnemonicParsing="false" text="Registruj se" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <PasswordField maxWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <TextField maxWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
+      <PasswordField fx:id="passwordField" maxWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <TextField fx:id="usernameField" maxWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" />
    </children>
 </GridPane>
