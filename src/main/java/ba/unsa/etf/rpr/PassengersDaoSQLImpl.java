@@ -119,4 +119,27 @@ public class PassengersDaoSQLImpl implements PassengersDao{
         }
         return null;
     }
+
+    @Override
+    public List<Tickets> getAllTickets(int passengerID) {
+        String query = "SELECT * FROM Tickets WHERE Passenger_ID = ?";
+        try {
+            PreparedStatement statement = this.connection.prepareStatement(query);
+            statement.setInt(1,passengerID);
+            ResultSet result = statement.executeQuery();
+            List<Tickets> list = new ArrayList<>();
+            while (result.next()){
+                Tickets p = new Tickets();
+                p.setTicketID(result.getInt(1));
+                p.setPrice(result.getInt(2));
+                p.setDepartureID(result.getInt(3));
+                p.setPassengerID(result.getInt(4));
+                list.add(p);
+            }
+            return list;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 }
