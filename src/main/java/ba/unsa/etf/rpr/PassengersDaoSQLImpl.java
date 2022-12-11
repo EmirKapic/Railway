@@ -35,9 +35,8 @@ public class PassengersDaoSQLImpl implements PassengersDao{
             p.setPassengerID(result.getInt(1));
             p.setName(result.getString(2));
             p.setSurname(result.getString(3));
-            p.setTicketID(result.getInt(4));
-            p.setPassword(result.getString(5));
-            p.setUsername(result.getString(6));
+            p.setPassword(result.getString(4));
+            p.setUsername(result.getString(5));
             return p;
 
         } catch (SQLException e) {
@@ -48,14 +47,13 @@ public class PassengersDaoSQLImpl implements PassengersDao{
 
     @Override
     public Passengers add(Passengers item) {
-        String query = "insert into Passengers(PassengerID, Name, Surname, TicketID, Password, Username) values ((SELECT (MAX(d.PassengerID) + 1) FROM Passengers d), ?, ?, ?, ?, ?)";
+        String query = "insert into Passengers(PassengerID, Name, Surname, Password, Username) values ((SELECT (MAX(d.PassengerID) + 1) FROM Passengers d), ?, ?, ?, ?)";
         try {
             PreparedStatement statement = this.connection.prepareStatement(query);
             statement.setString(1,item.getName());
             statement.setString(2,item.getSurname());
-            statement.setInt(3,item.getTicketID());
-            statement.setString(4,item.getPassword());
-            statement.setString(5, item.getUsername());
+            statement.setString(3,item.getPassword());
+            statement.setString(4, item.getUsername());
             statement.executeUpdate();
             return item;
 
@@ -67,15 +65,14 @@ public class PassengersDaoSQLImpl implements PassengersDao{
 
     @Override
     public Passengers update(Passengers item) {
-        String query = "UPDATE Passengers d SET Name = ?, Surname = ?, TicketID = ?, Password = ?, Username = ? WHERE d.PassengerID = ?";
+        String query = "UPDATE Passengers d SET Name = ?, Surname = ?, Password = ?, Username = ? WHERE d.PassengerID = ?";
         try {
             PreparedStatement statement = this.connection.prepareStatement(query);
             statement.setString(1,item.getName());
             statement.setString(2,item.getSurname());
-            statement.setInt(3,item.getTicketID());
-            statement.setString(4,item.getPassword());
-            statement.setString(5,item.getUsername());
-            statement.setInt(6,item.getPassengerID());
+            statement.setString(3,item.getPassword());
+            statement.setString(4,item.getUsername());
+            statement.setInt(5,item.getPassengerID());
 
             statement.executeUpdate();
             return item;
@@ -112,9 +109,8 @@ public class PassengersDaoSQLImpl implements PassengersDao{
                 p.setPassengerID(result.getInt(1));
                 p.setName(result.getString(2));
                 p.setSurname(result.getString(3));
-                p.setTicketID(result.getInt(4));
-                p.setPassword(result.getString(5));
-                p.setUsername(result.getString(6));
+                p.setPassword(result.getString(4));
+                p.setUsername(result.getString(5));
                 list.add(p);
             }
             return list;
