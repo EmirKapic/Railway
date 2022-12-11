@@ -9,7 +9,6 @@ public class Passengers {
     private String name;
     private String surname;
     private int PassengerID;
-    private int TicketID;
     private String password;
     private String username;
 
@@ -35,13 +34,14 @@ public class Passengers {
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", PassengerID=" + PassengerID +
-                ", TicketID=" + TicketID +
+                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
                 '}';
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, surname, PassengerID, TicketID);
+        return Objects.hash(name, surname, PassengerID);
     }
 
     public String getName() {
@@ -68,13 +68,6 @@ public class Passengers {
         PassengerID = passengerID;
     }
 
-    public int getTicketID() {
-        return TicketID;
-    }
-
-    public void setTicketID(int ticketID) {
-        TicketID = ticketID;
-    }
 
     public String getPassword() {
         return password;
@@ -85,11 +78,10 @@ public class Passengers {
     }
 
 
-    public Passengers(String name, String surname, int passengerID, int ticketID, String password, String username) {
+    public Passengers( int passengerID, String name, String surname,String password, String username) {
         this.name = name;
         this.surname = surname;
         PassengerID = passengerID;
-        TicketID = ticketID;
         this.password=password;
         this.username = username;
     }
