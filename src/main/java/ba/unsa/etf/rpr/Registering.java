@@ -38,11 +38,12 @@ public class Registering {
         }
     }
     private void passwordsMatchingCheck(){
-        if (newPassword != newPasswordRepeat){
+        if (!newPassword.getText().equals(newPasswordRepeat.getText())){
             reportProblem("Lozinke se ne poklapaju! Unesite ponovo");
         }
     }
     public void userRegisteredButton(ActionEvent actionEvent) throws IOException {
+        flag = true;
         PassengersDaoSQLImpl psql = new PassengersDaoSQLImpl();
         Passengers newUser = psql.getByUsername(newUsername.getText());
         emptyCheck();
@@ -50,11 +51,12 @@ public class Registering {
         if (flag && newUser != null)reportProblem("Korisničko ime je već zauzeto. Izaberite neko drugo.");
 
         //Here goes code to save user to the database
-        /*Parent root = FXMLLoader.load(getClass().getResource("/login.fxml"));
-        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();*/
-
+        if (flag){
+            Parent root = FXMLLoader.load(getClass().getResource("/login.fxml"));
+            stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 }
