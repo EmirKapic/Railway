@@ -3,7 +3,6 @@ package ba.unsa.etf.rpr;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -137,6 +136,26 @@ public class PassengersDaoSQLImpl implements PassengersDao{
                 list.add(p);
             }
             return list;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public Passengers getByUsername(String username){
+        String query = "SELECT * FROM Passengers WHERE Username = ?";
+        try {
+            PreparedStatement statement = this.connection.prepareStatement(query);
+            statement.setString(1,username);
+            ResultSet result = statement.executeQuery();
+            if (!result.next())return null;
+            Passengers p = new Passengers();
+            p.setPassengerID(result.getInt(1));
+            p.setName(result.getString(2));
+            p.setSurname(result.getString(3));
+            p.setPassword(result.getString(4));
+            p.setUsername(result.getString(5));
+            return p;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
