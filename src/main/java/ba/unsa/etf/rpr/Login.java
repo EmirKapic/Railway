@@ -18,13 +18,28 @@ public class Login {
     public PasswordField passwordField;
     public TextField usernameField;
 
+    private void incorrectUsername(){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Neispravni podaci");
+        alert.setHeaderText("Korisničko ime ili lozinka nije ispravna. Pokušajte ponovo");
+        alert.showAndWait();
+    }
+
+    private void emptyField(){
+        Alert emptyField = new Alert(Alert.AlertType.ERROR);
+        emptyField.setTitle("Greska");
+        emptyField.setHeaderText("Korisničko ime i lozinka ne mogu biti prazni! Unesite ponovo");
+        emptyField.showAndWait();
+    }
+
     public void loginButtonClick(ActionEvent actionEvent) {
-        if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty()){
-            Alert emptyField = new Alert(Alert.AlertType.ERROR);
-            emptyField.setTitle("Greska");
-            emptyField.setHeaderText("Korisničko ime i lozinka ne mogu biti prazni! Unesite ponovo");
-            emptyField.showAndWait();
-        }
+        if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty())emptyField();
+
+        PassengersDaoSQLImpl psql = new PassengersDaoSQLImpl();
+        Passengers user = psql.getByUsername(usernameField.getText());
+
+        if (user == null || !user.getPassword().equals(passwordField.getText()))incorrectUsername();
+
 
     }
     public void registerButtonClick(ActionEvent actionEvent) throws IOException {
