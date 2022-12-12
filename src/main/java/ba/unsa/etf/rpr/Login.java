@@ -32,15 +32,31 @@ public class Login {
         emptyField.showAndWait();
     }
 
-    public void loginButtonClick(ActionEvent actionEvent) {
-        if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty())emptyField();
+    public void loginButtonClick(ActionEvent actionEvent) throws IOException {
+        boolean correctFlag = true;
+
+        if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty()) {
+            correctFlag = false;
+            emptyField();
+        } //Questionable but lets keep it
 
         PassengersDaoSQLImpl psql = new PassengersDaoSQLImpl();
         Passengers user = psql.getByUsername(usernameField.getText());
 
-        if (user == null || !user.getPassword().equals(passwordField.getText()))incorrectUsername();
+        if (correctFlag && (user == null || !user.getPassword().equals(passwordField.getText()))) {
+            correctFlag = false;
+            incorrectUsername();
+        }
 
-
+        if (correctFlag){
+            Parent root = FXMLLoader.load(getClass().getResource("/mainWindow.fxml"));
+            stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            stage.close();
+            Stage newStage = new Stage();
+            scene = new Scene(root);
+            newStage.setScene(scene);
+            newStage.show();
+        }
     }
     public void registerButtonClick(ActionEvent actionEvent) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/registering.fxml"));
