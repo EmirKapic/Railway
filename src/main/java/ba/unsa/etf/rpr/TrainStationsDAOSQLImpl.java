@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -58,6 +59,11 @@ public class TrainStationsDAOSQLImpl implements TrainStationsDao{
         return null;
     }
 
+    /**
+     * this function should never be used(a train station can't change its location..)
+     * @param item nil
+     * @return nil
+     */
     @Override
     public TrainStations update(TrainStations item) {
         return null;
@@ -65,14 +71,45 @@ public class TrainStationsDAOSQLImpl implements TrainStationsDao{
 
     @Override
     public TrainStations delete(TrainStations item) {
+        String query = "DELETE FROM Train_stations WHERE Train_station_id = ?";
+        try {
+            PreparedStatement statement = this.connection.prepareStatement(query);
+            statement.setInt(1,item.getTrainStationID());
+            statement.executeUpdate();
+            return item;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
         return null;
     }
 
     @Override
     public List<TrainStations> getAll() {
+        String query = "SELECT * FROM Train_stations";
+        try {
+            PreparedStatement statement = this.connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+            List<TrainStations> L = new ArrayList<>();
+            while (resultSet.next()){
+                TrainStations t = new TrainStations();
+                t.setTrainStationID(resultSet.getInt(1));
+                t.setLocation(resultSet.getString(2));
+                L.add(t);
+            }
+            return L;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
         return null;
     }
 
+    /**
+     * Currently not needed
+     * @param location NIL
+     * @return NIL
+     */
     @Override
     public TrainStations findByLocation(String location) {
         return null;
