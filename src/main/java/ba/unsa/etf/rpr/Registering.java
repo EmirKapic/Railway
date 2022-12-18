@@ -50,12 +50,20 @@ public class Registering {
         if (flag) passwordsMatchingCheck();
         if (flag && newUser != null)reportProblem("Korisničko ime je već zauzeto. Izaberite neko drugo.");
 
-        //Here goes code to save user to the database
+
         if (flag){
+            newUser = new Passengers(0, newName.getText(), newSurname.getText(), newPassword.getText(), newUsername.getText());
+            psql.add(newUser);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Uspjesna registracija");
+            alert.setHeaderText("Uspjesno ste se registrovali. Unesite sada vase podatke.");
+            alert.showAndWait();
+
             Parent root = FXMLLoader.load(getClass().getResource("/login.fxml"));
             stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
+            stage.setResizable(false);
             stage.show();
         }
     }
