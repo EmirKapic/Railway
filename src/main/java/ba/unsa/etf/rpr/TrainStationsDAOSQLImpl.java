@@ -12,14 +12,14 @@ public class TrainStationsDAOSQLImpl implements TrainStationsDao{
 
     private Connection connection;
 
-    public TrainStationsDAOSQLImpl() throws IOException {
-        FileReader reader = new FileReader("D:\\Java Projects\\Railway\\src\\main\\resources\\db.properties");
-        Properties p = new Properties();
-        p.load(reader);
+    public TrainStationsDAOSQLImpl()  {
         try {
+            FileReader reader = new FileReader("D:\\Java Projects\\Railway\\src\\main\\resources\\db.properties");
+            Properties p = new Properties();
+            p.load(reader);
             this.connection = DriverManager.getConnection(p.getProperty("url"), p.getProperty("user"), p.getProperty("password"));
-        } catch (SQLException e) {
-            System.out.println("WARNING: Couldn't connect to database!");
+        }catch(Exception e){
+            System.out.println(e.getMessage());
         }
     }
 
