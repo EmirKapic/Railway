@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane minHeight="700.0" minWidth="1000.0" prefHeight="823.0" prefWidth="1358.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.MainWindowNewController">
    <top>
       <HBox prefHeight="223.0" prefWidth="1358.0" style="-fx-background-color: lightcyan;" BorderPane.alignment="CENTER">
@@ -68,7 +67,7 @@
                         <Font name="Yu Gothic Regular" size="12.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="152.0" style="-fx-background-color: lightgreen; -fx-border-color: black;" text="Search" GridPane.columnIndex="2" GridPane.rowSpan="2">
+                  <Button mnemonicParsing="false" onAction="#searchButtonClicked" prefHeight="45.0" prefWidth="152.0" style="-fx-background-color: lightgreen; -fx-border-color: black;" text="Search" GridPane.columnIndex="2" GridPane.rowSpan="2">
                      <font>
                         <Font name="Yu Gothic Regular" size="12.0" />
                      </font>

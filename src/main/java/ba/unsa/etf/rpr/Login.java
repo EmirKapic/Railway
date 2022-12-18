@@ -49,7 +49,7 @@ public class Login {
         }
 
         if (correctFlag){
-            Parent root = FXMLLoader.load(getClass().getResource("/mainWindow.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/FXMLFiles/mainWindow.fxml"));
             stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
             stage.close();
             Stage newStage = new Stage();
@@ -59,7 +59,7 @@ public class Login {
         }
     }
     public void registerButtonClick(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/registering.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/FXMLFiles/registering.fxml"));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
