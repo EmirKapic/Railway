@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="mainWindowPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="823.0" prefWidth="1358.0" stylesheets="@CenterContent.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.MainWindowController">
+<BorderPane fx:id="mainWindowPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="700.0" minWidth="1000.0" prefHeight="823.0" prefWidth="1358.0" stylesheets="@CenterContent.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.MainWindowController">
    <top>
       <HBox prefHeight="71.0" prefWidth="1358.0" style="-fx-background-color: lightblue;">
          <children>
@@ -20,7 +20,7 @@
                </font>
             </Label>
             <ImageView fx:id="TrainPic" fitHeight="72.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <Button id="ResButton" fx:id="ReservationButton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="70.0" prefWidth="160.0" style="-fx-border-color: black; -fx-background-color: dodgerblue;" text="Vaše rezervacije" textAlignment="CENTER">
+            <Button id="ResButton" fx:id="ReservationButton" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="70.0" prefWidth="160.0" style="-fx-border-color: black; -fx-background-color: dodgerblue;" text="Vaše rezervacije" textAlignment="CENTER" HBox.hgrow="ALWAYS">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -33,7 +33,7 @@
                <HBox.margin>
                   <Insets />
                </HBox.margin></Button>
-            <Button fx:id="DeparturesButton" alignment="CENTER" mnemonicParsing="false" prefHeight="70.0" prefWidth="155.0" style="-fx-border-color: black; -fx-background-color: dodgerblue;" text="Red vožnje">
+            <Button fx:id="DeparturesButton" alignment="CENTER" mnemonicParsing="false" prefHeight="70.0" prefWidth="155.0" style="-fx-border-color: black; -fx-background-color: dodgerblue;" text="Red vožnje" HBox.hgrow="ALWAYS">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -46,7 +46,21 @@
                <HBox.margin>
                   <Insets left="3.0" />
                </HBox.margin></Button>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="72.0" prefWidth="331.0" text="Dobro došli!" textFill="WHITE">
+            <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="155.0" style="-fx-background-color: dodgerblue; -fx-border-color: black;" text="Kupi kartu" HBox.hgrow="ALWAYS">
+               <font>
+                  <Font name="Berlin Sans FB" size="17.0" />
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+               <HBox.margin>
+                  <Insets left="3.0" />
+               </HBox.margin>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="72.0" prefWidth="335.0" text="Dobro došli!" textFill="WHITE">
                <font>
                   <Font name="Berlin Sans FB" size="36.0" />
                </font>
