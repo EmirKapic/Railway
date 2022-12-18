@@ -49,7 +49,7 @@ public class Login {
         }
 
         if (correctFlag){
-            Parent root = FXMLLoader.load(getClass().getResource("/FXMLFiles/mainWindow.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/FXMLFiles/mainWindowRevamp.fxml"));
             stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
             stage.close();
             Stage newStage = new Stage();
