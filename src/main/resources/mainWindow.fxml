@@ -46,7 +46,7 @@
                <HBox.margin>
                   <Insets left="3.0" />
                </HBox.margin></Button>
-            <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="155.0" style="-fx-background-color: dodgerblue; -fx-border-color: black;" text="Kupi kartu" HBox.hgrow="ALWAYS">
+            <Button mnemonicParsing="false" onAction="#buyTicketButtonPressed" prefHeight="70.0" prefWidth="155.0" style="-fx-background-color: dodgerblue; -fx-border-color: black;" text="Kupi kartu" HBox.hgrow="ALWAYS">
                <font>
                   <Font name="Berlin Sans FB" size="17.0" />
                </font>
