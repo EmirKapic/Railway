@@ -17,9 +17,9 @@
    <top>
       <HBox prefHeight="223.0" prefWidth="1358.0" style="-fx-background-color: lightcyan;" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" prefHeight="87.0" prefWidth="250.0" text="RAILWAY">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="278.0" prefWidth="1358.0" text="RAILWAY" HBox.hgrow="ALWAYS">
                <HBox.margin>
-                  <Insets left="520.0" top="65.0" />
+                  <Insets />
                </HBox.margin>
                <font>
                   <Font name="Berlin Sans FB" size="49.0" />
@@ -31,9 +31,6 @@
          </children>
       </HBox>
    </top>
-   <left>
-      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER" />
-   </left>
    <center>
       <GridPane prefHeight="523.0" prefWidth="1027.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
         <columnConstraints>
@@ -45,7 +42,7 @@
           <RowConstraints maxHeight="539.0" minHeight="10.0" prefHeight="464.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <GridPane alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="453.0" minWidth="10.0" prefWidth="226.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="666.0" minWidth="10.0" prefWidth="226.0" />
@@ -53,27 +50,41 @@
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints maxHeight="213.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
-                <RowConstraints maxHeight="213.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="213.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="385.0" minHeight="10.0" prefHeight="382.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="From">
-                     <font>
-                        <Font name="Yu Gothic Regular" size="12.0" />
-                     </font>
-                  </Label>
-                  <Label text="To" GridPane.columnIndex="1">
-                     <font>
-                        <Font name="Yu Gothic Regular" size="12.0" />
-                     </font>
-                  </Label>
-                  <Button mnemonicParsing="false" onAction="#searchButtonClicked" prefHeight="45.0" prefWidth="152.0" style="-fx-background-color: lightgreen; -fx-border-color: black;" text="Search" GridPane.columnIndex="2" GridPane.rowSpan="2">
-                     <font>
-                        <Font name="Yu Gothic Regular" size="12.0" />
-                     </font>
-                  </Button>
-                  <ChoiceBox fx:id="entryChoice" prefWidth="150.0" GridPane.rowIndex="1" />
-                  <ChoiceBox fx:id="endChoice" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="From">
+                           <font>
+                              <Font name="Yu Gothic Regular" size="12.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox fx:id="entryChoice" prefWidth="150.0" />
+                     </children>
+                     <GridPane.margin>
+                        <Insets top="15.0" />
+                     </GridPane.margin>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
+                     <children>
+                        <Label text="To">
+                           <font>
+                              <Font name="Yu Gothic Regular" size="12.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox fx:id="endChoice" prefWidth="150.0">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </ChoiceBox>
+                     </children>
+                     <GridPane.margin>
+                        <Insets top="15.0" />
+                     </GridPane.margin>
+                  </VBox>
+                  <Button mnemonicParsing="false" onAction="#searchButtonClicked" prefHeight="62.0" prefWidth="130.0" text="Search" GridPane.columnIndex="2" GridPane.rowSpan="2" />
                </children>
             </GridPane>
             <Label prefHeight="45.0" prefWidth="455.0" text="Traveling made easy" GridPane.columnIndex="1">
