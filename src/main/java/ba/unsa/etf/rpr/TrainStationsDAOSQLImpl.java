@@ -45,6 +45,16 @@ public class TrainStationsDAOSQLImpl implements TrainStationsDao{
 
     @Override
     public TrainStations add(TrainStations item) {
+        String query = "insert into Train_stations(Train_station_ID, Location) values ((SELECT (MAX(d.Train_station_ID) + 1) FROM Train_stations d), ?)";
+        try {
+            PreparedStatement statement = this.connection.prepareStatement(query);
+            statement.setString(1,item.getLocation());
+            return item;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        // String query = "insert into Tickets(TicketID, Price, Departure_ID, Passenger_ID) values ((SELECT (MAX(d.TicketID) + 1) FROM Tickets d), ?, ?, ?)";
         return null;
     }
 
