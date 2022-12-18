@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane minHeight="700.0" minWidth="1000.0" prefHeight="823.0" prefWidth="1358.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.MainWindowNewController">
+   <top>
+      <HBox prefHeight="223.0" prefWidth="1358.0" style="-fx-background-color: lightcyan;" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" prefHeight="87.0" prefWidth="250.0" text="RAILWAY">
+               <HBox.margin>
+                  <Insets left="520.0" top="65.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="Berlin Sans FB" size="49.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </Label>
+         </children>
+      </HBox>
+   </top>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER" />
+   </left>
+   <center>
+      <GridPane prefHeight="523.0" prefWidth="1027.0" style="-fx-background-color: white;" BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="623.0" minWidth="10.0" prefWidth="217.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="1044.0" minWidth="10.0" prefWidth="1041.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints maxHeight="446.0" minHeight="10.0" prefHeight="259.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="539.0" minHeight="10.0" prefHeight="464.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="453.0" minWidth="10.0" prefWidth="226.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="666.0" minWidth="10.0" prefWidth="226.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="595.0" minWidth="10.0" prefWidth="585.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="213.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="213.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="385.0" minHeight="10.0" prefHeight="382.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="From">
+                     <font>
+                        <Font name="Yu Gothic Regular" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="To" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="Yu Gothic Regular" size="12.0" />
+                     </font>
+                  </Label>
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="152.0" style="-fx-background-color: lightgreen; -fx-border-color: black;" text="Search" GridPane.columnIndex="2" GridPane.rowSpan="2">
+                     <font>
+                        <Font name="Yu Gothic Regular" size="12.0" />
+                     </font>
+                  </Button>
+                  <ChoiceBox fx:id="entryChoice" prefWidth="150.0" GridPane.rowIndex="1" />
+                  <ChoiceBox fx:id="endChoice" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+            <Label prefHeight="45.0" prefWidth="455.0" text="Traveling made easy" GridPane.columnIndex="1">
+               <font>
+                  <Font name="Yu Gothic Regular" size="47.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="100.0" />
+               </GridPane.margin>
+            </Label>
+            <ImageView fx:id="leftImage" fitHeight="59.0" fitWidth="89.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" />
+            <ImageView fx:id="rightPic2" fitHeight="73.0" fitWidth="84.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="600.0" />
+               </GridPane.margin>
+            </ImageView>
+            <Label text="Book your ticket now &amp; enjoy the ride" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="105.0" top="120.0" />
+               </GridPane.margin>
+               <font>
+                  <Font name="Yu Gothic Regular" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+   </center>
+</BorderPane>
