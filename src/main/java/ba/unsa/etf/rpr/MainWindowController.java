@@ -9,9 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -31,12 +28,12 @@ public class MainWindowController {
 
     @FXML
     public void initialize(){
-        Image image = new Image("train2.jpg");
+        Image image = new Image("Pictures/train2.jpg");
         TrainPic.setImage(image);
     }
 
     public void logOffButtonClicked(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/FXMLFiles/login.fxml"));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -45,7 +42,7 @@ public class MainWindowController {
     }
 
     public void buyTicketButtonPressed(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/buyNewTicketWindow.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/FXMLFiles/buyNewTicketWindow.fxml"));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
