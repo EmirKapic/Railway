@@ -14,9 +14,9 @@
    <top>
       <HBox prefHeight="71.0" prefWidth="1358.0" style="-fx-background-color: lightblue;">
          <children>
-            <Label alignment="CENTER" prefHeight="70.0" prefWidth="118.0" style="-fx-background-color: Lightblue;" text="RAILWAY" textAlignment="CENTER" textFill="#2c17b5" underline="true">
+            <Label alignment="CENTER" prefHeight="70.0" prefWidth="174.0" style="-fx-background-color: Lightblue;" text="RAILWAY" textAlignment="CENTER" textFill="#2c17b5" underline="true">
                <font>
-                  <Font name="Rockwell Extra Bold" size="18.0" />
+                  <Font name="Rockwell Extra Bold" size="24.0" />
                </font>
             </Label>
             <ImageView fx:id="TrainPic" fitHeight="72.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
@@ -29,7 +29,10 @@
                </effect>
                <font>
                   <Font name="Berlin Sans FB" size="18.0" />
-               </font></Button>
+               </font>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
             <Button fx:id="DeparturesButton" alignment="CENTER" mnemonicParsing="false" prefHeight="70.0" prefWidth="155.0" style="-fx-border-color: black; -fx-background-color: dodgerblue;" text="Red vožnje">
                <cursor>
                   <Cursor fx:constant="HAND" />
@@ -39,7 +42,10 @@
                </effect>
                <font>
                   <Font name="Berlin Sans FB" size="17.0" />
-               </font></Button>
+               </font>
+               <HBox.margin>
+                  <Insets left="3.0" />
+               </HBox.margin></Button>
             <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="72.0" prefWidth="331.0" text="Dobro došli!" textFill="WHITE">
                <font>
                   <Font name="Berlin Sans FB" size="36.0" />
@@ -49,9 +55,9 @@
       </HBox>
    </top>
    <left>
-      <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="98.0" style="-fx-background-color: dodgerblue;" text="Odjavi se" BorderPane.alignment="BOTTOM_LEFT">
+      <Button fx:id="logOffButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#logOffButtonClicked" prefHeight="48.0" prefWidth="98.0" style="-fx-background-color: dodgerblue;" text="Odjavi se" BorderPane.alignment="BOTTOM_LEFT">
          <BorderPane.margin>
-            <Insets top="700.0" />
+            <Insets bottom="10.0" left="10.0" top="700.0" />
          </BorderPane.margin>
          <font>
             <Font name="Berlin Sans FB" size="18.0" />
