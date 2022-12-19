@@ -1,0 +1,11 @@
+.city{
+    -fx-font-family: "Yu Gothic";
+    -fx-font-size: 14;
+}
+
+
+.length{
+    -fx-font-family: "Yu Gothic";
+     -fx-font-size: 20;
+     -fx-margin-top: 10px;
+}

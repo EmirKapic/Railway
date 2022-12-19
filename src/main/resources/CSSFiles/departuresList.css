@@ -1,0 +1,18 @@
+.time{
+    -fx-text-fill: blue;
+    -fx-font-family: "Droid Serif";
+    -fx-font-weight: bold;
+    -fx-font-size: 22;
+}
+
+
+.departure{
+    -fx-background-color: lightcyan;
+    -fx-padding: 10px 10px 10px 10px;
+    -fx-margin-top: 10
+}
+
+.lenText{
+    -fx-font-family: "Yu Gothic";
+    -fx-font-size: 11;
+}
