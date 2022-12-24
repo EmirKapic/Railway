@@ -35,18 +35,37 @@ public abstract class AbstractDao<T> implements Dao<T>{
     public abstract Map<String, Object> object2row(T item);
 
     @Override
-    public T getById(int id) {
+    public T getById(int id) throws StatementException {
         try {
             return executeQueryUnique("SELECT * FROM " + this.tableName + " WHERE ID = ?", new Object[]{id});
         } catch (StatementException e) {
-            System.out.println(e.getMessage());
-            System.exit(1);
-            return null;
+            throw new StatementException("Error while loading by ID from database");
         }
     }
     @Override
-    public T add(T item){
-        return null;
+    public T add(T item) throws StatementException {
+        Map<String, Object> row = object2row(item);
+        Map.Entry<String, String> columns = prepareInsert(row);
+
+        StringBuilder query = new StringBuilder();
+        query.append("INSERT INTO ").append(tableName);
+        query.append(" (").append(columns.getKey()).append(") ");
+        query.append("VALUES (").append(columns.getValue()).append(")");
+
+        try {
+            PreparedStatement statement = getConnection().prepareStatement(query.toString());
+            int counter = 0;
+            for (Map.Entry<String, Object> entry : row.entrySet()){
+                ++counter;
+                if (entry.getKey().equals("ID"))continue;
+                statement.setObject(counter, entry.getValue());
+            }
+            statement.executeUpdate();
+            return item;
+        } catch (SQLException e) {
+            throw new StatementException("Error while adding to database!");
+        }
+
     }
     @Override
     public T update(T item){
