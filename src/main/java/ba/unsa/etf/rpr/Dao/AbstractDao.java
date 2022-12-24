@@ -108,6 +108,14 @@ public abstract class AbstractDao<T> implements Dao<T>{
     }
 
     private String prepareUpdate(Map<String, Object> row){
-        return null;
+        StringBuilder columns = new StringBuilder();
+        int counter = 0;
+        for (Map.Entry<String, Object> entry : row.entrySet()){
+            ++counter;
+            if (entry.getKey().equals("ID"))continue;
+            columns.append(entry.getKey()).append("= ?");
+            if (row.size() != counter)columns.append(",");
+        }
+        return columns.toString();
     }
 }
