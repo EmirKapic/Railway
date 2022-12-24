@@ -1,4 +1,4 @@
-package ba.unsa.etf.rpr;
+package ba.unsa.etf.rpr.Domain;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

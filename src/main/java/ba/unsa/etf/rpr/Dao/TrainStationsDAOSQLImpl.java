@@ -1,8 +1,8 @@
-package ba.unsa.etf.rpr;
+package ba.unsa.etf.rpr.Dao;
 
-import java.io.FileNotFoundException;
+import ba.unsa.etf.rpr.Domain.TrainStations;
+
 import java.io.FileReader;
-import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

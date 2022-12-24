@@ -1,4 +1,6 @@
-package ba.unsa.etf.rpr;
+package ba.unsa.etf.rpr.Dao;
+
+import ba.unsa.etf.rpr.Domain.TrainStations;
 
 public interface TrainStationsDao extends Dao<TrainStations>{
     /**

@@ -1,4 +1,7 @@
-package ba.unsa.etf.rpr;
+package ba.unsa.etf.rpr.Dao;
+
+import ba.unsa.etf.rpr.Domain.Passengers;
+import ba.unsa.etf.rpr.Domain.Tickets;
 
 import java.io.FileReader;
 import java.io.IOException;

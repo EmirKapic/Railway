@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="700.0" minWidth="1000.0" prefHeight="823.0" prefWidth="1358.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.TicketSearchController">
+<BorderPane minHeight="700.0" minWidth="1000.0" prefHeight="823.0" prefWidth="1358.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Pictures.Controllers.TicketSearchController">
    <top>
       <HBox prefHeight="78.0" prefWidth="1358.0" style="-fx-background-color: lightcyan;" BorderPane.alignment="CENTER">
          <children>

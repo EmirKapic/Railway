@@ -1,12 +1,12 @@
-package ba.unsa.etf.rpr;
+package ba.unsa.etf.rpr.Dao;
+
+import ba.unsa.etf.rpr.Domain.Departures;
 
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 

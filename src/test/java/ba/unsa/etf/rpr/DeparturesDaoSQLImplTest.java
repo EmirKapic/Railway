@@ -1,5 +1,7 @@
 package ba.unsa.etf.rpr;
 
+import ba.unsa.etf.rpr.Dao.DeparturesDaoSQLImpl;
+import ba.unsa.etf.rpr.Domain.Departures;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

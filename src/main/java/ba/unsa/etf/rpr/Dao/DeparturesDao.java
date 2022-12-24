@@ -1,7 +1,8 @@
-package ba.unsa.etf.rpr;
+package ba.unsa.etf.rpr.Dao;
+
+import ba.unsa.etf.rpr.Domain.Departures;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 public interface DeparturesDao extends Dao<Departures> {
