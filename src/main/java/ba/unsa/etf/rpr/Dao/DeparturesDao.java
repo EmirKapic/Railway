@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr.Dao;
 
 import ba.unsa.etf.rpr.Domain.Departures;
+import ba.unsa.etf.rpr.Exceptions.StatementException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,7 +12,7 @@ public interface DeparturesDao extends Dao<Departures> {
      * @param startDate the date at which the departure takes off
      * @return list of all departures which start at the specified date
      */
-    List<Departures> searchByStartDate(LocalDateTime startDate);
+    List<Departures> searchByStartDate(LocalDateTime startDate) throws StatementException;
 
     /**
      * Searches the DB for departures from a certain station
