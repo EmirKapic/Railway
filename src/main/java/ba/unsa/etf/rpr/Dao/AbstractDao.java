@@ -32,7 +32,7 @@ public abstract class AbstractDao<T extends IDable> implements Dao<T>{
     public void setConnection(Connection connection) {
         this.connection = connection;
     }
-    public abstract T row2object(ResultSet rs);
+    public abstract T row2object(ResultSet rs) throws SQLException;
     public abstract Map<String, Object> object2row(T item);
 
     @Override
