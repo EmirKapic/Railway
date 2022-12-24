@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr.Dao;
 
+import ba.unsa.etf.rpr.Exceptions.StatementException;
 import java.util.List;
 
 /**
@@ -11,31 +12,31 @@ public interface Dao<T> {
      * @param id primary key in the DB
      * @return Object with the primaryKey
      */
-    T getById(int id);
+    T getById(int id) throws StatementException;
 
     /**
      * Adds an object to the DB
      * @param item the object to be added
      * @return added item
      */
-    T add(T item);
+    T add(T item) throws StatementException;
 
     /**
      * Updates an object in the Database
      * @param item to be updated
      * @return updated object
      */
-    T update(T item);
+    T update(T item) throws StatementException;
 
     /**
      * Deletes the specified object from the DB
      * @param id id of the object to be deleted
      */
-    void delete(int id);
+    void delete(int id)throws StatementException;
 
     /**
      * Returns all objects from the DB
      * @return List of all objects
      */
-    List<T> getAll();
+    List<T> getAll()throws StatementException;
 }
