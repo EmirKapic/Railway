@@ -1,8 +1,10 @@
 package ba.unsa.etf.rpr.Domain;
 
+import ba.unsa.etf.rpr.IDable;
+
 import java.util.Objects;
 
-public class Passengers {
+public class Passengers implements IDable {
     public Passengers(){
 
     }
@@ -60,11 +62,11 @@ public class Passengers {
         this.surname = surname;
     }
 
-    public int getPassengerID() {
+    public int getID() {
         return PassengerID;
     }
 
-    public void setPassengerID(int passengerID) {
+    public void setID(int passengerID) {
         PassengerID = passengerID;
     }
 
