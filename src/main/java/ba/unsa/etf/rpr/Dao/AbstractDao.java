@@ -1,12 +1,13 @@
 package ba.unsa.etf.rpr.Dao;
 
 import ba.unsa.etf.rpr.Exceptions.StatementException;
+import ba.unsa.etf.rpr.IDable;
 
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 
-public abstract class AbstractDao<T> implements Dao<T>{
+public abstract class AbstractDao<T extends IDable> implements Dao<T>{
     private Connection connection;
     private String tableName;
     public AbstractDao(String tableName){
@@ -68,8 +69,28 @@ public abstract class AbstractDao<T> implements Dao<T>{
 
     }
     @Override
-    public T update(T item){
-        return null;
+    public T update(T item) throws StatementException {
+        Map<String, Object> row = object2row(item);
+        String columns = prepareUpdate(row);
+        StringBuilder query = new StringBuilder();
+        query.append("UPDATE ").append(this.tableName).append(" SET ").append(columns).append(" WHERE ID = ?");
+
+        try {
+            PreparedStatement statement = getConnection().prepareStatement(query.toString());
+            int counter = 1;
+            for (Map.Entry<String, Object> entry : row.entrySet()){
+                if (entry.getKey().equals("ID"))continue;
+                statement.setObject(counter, entry.getValue());
+                ++counter;
+            }
+            statement.setObject(counter, item.getID());
+            statement.executeUpdate();
+            return item;
+
+        } catch (SQLException e) {
+            throw new StatementException("Error while updating the database!");
+        }
+
     }
     @Override
     public void delete(int id){
