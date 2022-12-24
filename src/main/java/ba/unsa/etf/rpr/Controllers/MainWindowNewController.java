@@ -1,7 +1,8 @@
-package Pictures.Controllers;
+package ba.unsa.etf.rpr.Controllers;
 
 import ba.unsa.etf.rpr.Dao.TrainStationsDAOSQLImpl;
 import ba.unsa.etf.rpr.Domain.TrainStations;
+import ba.unsa.etf.rpr.Exceptions.StatementException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -34,7 +35,7 @@ public class MainWindowNewController {
     }
 
 
-    public void initialize(){
+    public void initialize() throws StatementException {
         Image image = new Image("Pictures/railwaytrain.png");
         leftImage.setImage(image);
         image = new Image("Pictures/rightpic2.jpg");

@@ -1,4 +1,4 @@
-package Pictures.Controllers;
+package ba.unsa.etf.rpr.Controllers;
 
 import ba.unsa.etf.rpr.Dao.PassengersDaoSQLImpl;
 import ba.unsa.etf.rpr.Domain.Passengers;

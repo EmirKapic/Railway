@@ -1,4 +1,4 @@
-package Pictures.Controllers;
+package ba.unsa.etf.rpr.Controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

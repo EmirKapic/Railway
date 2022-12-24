@@ -1,7 +1,8 @@
-package Pictures.Controllers;
+package ba.unsa.etf.rpr.Controllers;
 
 import ba.unsa.etf.rpr.Dao.PassengersDaoSQLImpl;
 import ba.unsa.etf.rpr.Domain.Passengers;
+import ba.unsa.etf.rpr.Exceptions.StatementException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -42,7 +43,7 @@ public class Registering {
             reportProblem("Lozinke se ne poklapaju! Unesite ponovo");
         }
     }
-    public void userRegisteredButton(ActionEvent actionEvent) throws IOException {
+    public void userRegisteredButton(ActionEvent actionEvent) throws IOException, StatementException {
         flag = true;
         PassengersDaoSQLImpl psql = new PassengersDaoSQLImpl();
         Passengers newUser = psql.getByUsername(newUsername.getText());
