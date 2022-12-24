@@ -93,7 +93,16 @@ public abstract class AbstractDao<T extends IDable> implements Dao<T>{
 
     }
     @Override
-    public void delete(int id){
+    public void delete(int id) throws StatementException {
+        String query = "DELETE FROM " + this.tableName + " WHERE ID = ?";
+        try {
+            PreparedStatement statement = getConnection().prepareStatement(query);
+            statement.setObject(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new StatementException("Error while deleting from database");
+        }
+
 
     }
     @Override
