@@ -1,5 +1,7 @@
 package ba.unsa.etf.rpr.Dao;
 
+import ba.unsa.etf.rpr.Exceptions.StatementException;
+
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -38,8 +40,14 @@ public abstract class AbstractDao<T> implements Dao<T>{
     public abstract Map<String, Object> object2row(T item);
 
     @Override
-    public T getById(int id){
-        return executeQueryUnique("SELECT * FROM " + this.tableName + " WHERE ID = ?", new Object[]{id});
+    public T getById(int id) {
+        try {
+            return executeQueryUnique("SELECT * FROM " + this.tableName + " WHERE ID = ?", new Object[]{id});
+        } catch (StatementException e) {
+            System.out.println(e.getMessage());
+            System.exit(1);
+            return null;
+        }
     }
     @Override
     public T add(T item){
@@ -63,8 +71,10 @@ public abstract class AbstractDao<T> implements Dao<T>{
         return null;
     }
 
-    public T executeQueryUnique(String query, Object[] parameters){
-        return null;
+    public T executeQueryUnique(String query, Object[] parameters) throws StatementException {
+        List<T> result = executeQuery(query, parameters);
+        if (result!=null && result.size() == 1)return result.get(0);
+        else throw new StatementException("Result not correct!");
     }
 
     private Map.Entry<String, String> prepareInsertParts(Map<String, Object> row){
