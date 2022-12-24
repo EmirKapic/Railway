@@ -37,13 +37,13 @@ public class TicketsDaoSQLImpl extends AbstractDao<Tickets> implements TicketsDa
     public List<Tickets> getByDeparture(int dep) {
         String query = "SELECT * FROM Tickets t WHERE t.Departure_ID = ?";
         try {
-            PreparedStatement statement = this.connection.prepareStatement(query);
+            PreparedStatement statement = getConnection().prepareStatement(query);
             statement.setInt(1,dep);
             ResultSet result = statement.executeQuery();
             List<Tickets> list = new ArrayList<>();
             while(result.next()){
                 Tickets p = new Tickets();
-                p.setTicketID(result.getInt(1));
+                p.setID(result.getInt(1));
                 p.setPrice(result.getInt(2));
                 p.setDepartureID(result.getInt(3));
                 p.setPassengerID(result.getInt(4));
