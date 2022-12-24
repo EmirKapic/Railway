@@ -1,9 +1,11 @@
 package ba.unsa.etf.rpr.Domain;
 
+import ba.unsa.etf.rpr.IDable;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Departures {
+public class Departures implements IDable {
 
     public Departures() {
     }
@@ -45,11 +47,11 @@ public class Departures {
         this.endTime = endTime;
     }
 
-    public int getDepartureID() {
+    public int getID() {
         return departureID;
     }
 
-    public void setDepartureID(int departureID) {
+    public void setID(int departureID) {
         this.departureID = departureID;
     }
 
