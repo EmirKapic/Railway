@@ -29,10 +29,9 @@ public interface Dao<T> {
 
     /**
      * Deletes the specified object from the DB
-     * @param item object to be deleted
-     * @return Deleted object
+     * @param id id of the object to be deleted
      */
-    T delete(T item);
+    void delete(int id);
 
     /**
      * Returns all objects from the DB
