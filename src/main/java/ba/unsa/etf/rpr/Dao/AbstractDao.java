@@ -106,8 +106,8 @@ public abstract class AbstractDao<T extends IDable> implements Dao<T>{
 
     }
     @Override
-    public List<T> getAll(){
-        return null;
+    public List<T> getAll() throws StatementException {
+        return executeQuery("SELECT * FROM " + this.tableName, null);
     }
 
 
