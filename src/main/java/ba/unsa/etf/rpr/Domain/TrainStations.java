@@ -1,8 +1,10 @@
 package ba.unsa.etf.rpr.Domain;
 
+import ba.unsa.etf.rpr.IDable;
+
 import java.util.Objects;
 
-public class TrainStations {
+public class TrainStations implements IDable {
     private int trainStationID;
     private String location;
 
@@ -31,11 +33,11 @@ public class TrainStations {
                 '}';
     }
 
-    public int getTrainStationID() {
+    public int getID() {
         return trainStationID;
     }
 
-    public void setTrainStationID(int trainStationID) {
+    public void setID(int trainStationID) {
         this.trainStationID = trainStationID;
     }
 
