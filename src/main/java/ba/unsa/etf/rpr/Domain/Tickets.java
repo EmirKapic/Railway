@@ -1,8 +1,10 @@
 package ba.unsa.etf.rpr.Domain;
 
+import ba.unsa.etf.rpr.IDable;
+
 import java.util.Objects;
 
-public class Tickets {
+public class Tickets implements IDable{
     private int ticketID;
     private int price;
     private int dep;
@@ -50,11 +52,11 @@ public class Tickets {
         return Objects.hash(ticketID, price, dep);
     }
 
-    public int getTicketID() {
+    public int getID() {
         return ticketID;
     }
 
-    public void setTicketID(int ticketID) {
+    public void setID(int ticketID) {
         this.ticketID = ticketID;
     }
 
