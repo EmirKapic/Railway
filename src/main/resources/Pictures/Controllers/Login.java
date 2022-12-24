@@ -1,5 +1,7 @@
-package ba.unsa.etf.rpr;
+package Pictures.Controllers;
 
+import ba.unsa.etf.rpr.Dao.PassengersDaoSQLImpl;
+import ba.unsa.etf.rpr.Domain.Passengers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
