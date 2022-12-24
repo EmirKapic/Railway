@@ -55,11 +55,11 @@ public abstract class AbstractDao<T extends IDable> implements Dao<T>{
 
         try {
             PreparedStatement statement = getConnection().prepareStatement(query.toString());
-            int counter = 0;
+            int counter = 1;
             for (Map.Entry<String, Object> entry : row.entrySet()){
-                ++counter;
                 if (entry.getKey().equals("ID"))continue;
                 statement.setObject(counter, entry.getValue());
+                ++counter;
             }
             statement.executeUpdate();
             return item;
@@ -142,8 +142,16 @@ public abstract class AbstractDao<T extends IDable> implements Dao<T>{
         int counter = 0;
         for (Map.Entry<String, Object> entry: row.entrySet()) {
             counter++;
-            if (entry.getKey().equals("ID")){
-                questions.append("(SELECT (MAX(d.DeparturesID) + 1) FROM Departures d)");
+            if (entry.getKey().equals("ID")){ //This serves as personal auto-increment as the one on the DB app isn't working for me
+                switch (this.tableName) {
+                    case "Departures" -> questions.append("(SELECT (MAX(d.ID) + 1) FROM Departures d)");
+                    case "Passengers" -> questions.append("(SELECT (MAX(d.ID) + 1) FROM Passengers d)");
+                    case "Tickets" -> questions.append("(SELECT (MAX(d.ID) + 1) FROM Tickets d)");
+                    case "Train_stations" -> questions.append("(SELECT (MAX(d.ID) + 1) FROM Train_stations d)");
+                }
+                questions.append(",");
+                columns.append(entry.getKey());
+                columns.append(",");
                 continue;
             }
             columns.append(entry.getKey());
