@@ -3,6 +3,7 @@ package ba.unsa.etf.rpr.Dao;
 import ba.unsa.etf.rpr.Exceptions.StatementException;
 import ba.unsa.etf.rpr.IDable;
 
+import javax.xml.transform.Result;
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
@@ -48,6 +49,25 @@ public abstract class AbstractDao<T extends IDable> implements Dao<T>{
         Map<String, Object> row = object2row(item);
         Map.Entry<String, String> columns = prepareInsert(row);
 
+        String helpqry ;
+        switch (this.tableName) {
+            case "Departures" -> helpqry = "SELECT (MAX(d.ID) + 1) FROM Departures d;";
+            case "Passengers" -> helpqry = "SELECT (MAX(d.ID) + 1) FROM Passengers d;";
+            case "Tickets" -> helpqry = "SELECT (MAX(d.ID) + 1) FROM Tickets d;";
+            case "Train_stations" -> helpqry= "SELECT (MAX(d.ID) + 1) FROM Train_stations d;";
+            default -> helpqry = null;
+        }
+        int newID;
+        try {
+            PreparedStatement statement = getConnection().prepareStatement(helpqry);
+            ResultSet rs = statement.executeQuery();
+            rs.next();
+            newID = rs.getInt(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
         StringBuilder query = new StringBuilder();
         query.append("INSERT INTO ").append(tableName);
         query.append(" (").append(columns.getKey()).append(") ");
@@ -62,6 +82,7 @@ public abstract class AbstractDao<T extends IDable> implements Dao<T>{
                 ++counter;
             }
             statement.executeUpdate();
+            item.setID(newID);
             return item;
         } catch (SQLException e) {
             throw new StatementException("Error while adding to database!");
