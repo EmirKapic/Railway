@@ -93,5 +93,21 @@ public class DeparturesDaoSQLImpl extends AbstractDao<Departures> implements Dep
         return null;
     }
 
+    public String getCity(int id){
+        String query = "SELECT t.Location FROM FROM Departures d JOIN Train_stations t ON d.Start_station_ID = t.ID WHERE d.ID = ?";
+        try {
+            PreparedStatement statement = getConnection().prepareStatement(query);
+            statement.setInt(1, id);
+            ResultSet result = statement.executeQuery();
+            if (!result.next())throw new SQLException("No such id/city");
+            return result.getString("Location");
+
+        } catch (SQLException e) {
+            System.out.println("Error while getting city from database");
+            System.exit(1);
+        }
+        return null;
+    }
+
 
 }
