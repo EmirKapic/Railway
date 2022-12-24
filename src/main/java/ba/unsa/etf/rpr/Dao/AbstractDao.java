@@ -4,10 +4,7 @@ import ba.unsa.etf.rpr.Exceptions.StatementException;
 
 import java.io.IOException;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 public abstract class AbstractDao<T> implements Dao<T>{
     private Connection connection;
@@ -89,11 +86,28 @@ public abstract class AbstractDao<T> implements Dao<T>{
         else throw new StatementException("Result not correct!");
     }
 
-    private Map.Entry<String, String> prepareInsertParts(Map<String, Object> row){
-        return null;
+    private Map.Entry<String, String> prepareInsert(Map<String, Object> row){
+        StringBuilder columns = new StringBuilder();
+        StringBuilder questions = new StringBuilder();
+
+        int counter = 0;
+        for (Map.Entry<String, Object> entry: row.entrySet()) {
+            counter++;
+            if (entry.getKey().equals("ID")){
+                questions.append("(SELECT (MAX(d.DeparturesID) + 1) FROM Departures d)");
+                continue;
+            }
+            columns.append(entry.getKey());
+            questions.append("?");
+            if (row.size() != counter) {
+                columns.append(",");
+                questions.append(",");
+            }
+        }
+        return new AbstractMap.SimpleEntry<>(columns.toString(), questions.toString());
     }
 
-    private String prepareUpdateParts(Map<String, Object> row){
+    private String prepareUpdate(Map<String, Object> row){
         return null;
     }
 }
