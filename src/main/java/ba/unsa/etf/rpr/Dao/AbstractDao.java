@@ -3,10 +3,8 @@ package ba.unsa.etf.rpr.Dao;
 import ba.unsa.etf.rpr.Exceptions.StatementException;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -67,8 +65,22 @@ public abstract class AbstractDao<T> implements Dao<T>{
     }
 
 
-    public List<T> executeQuery(String query, Object[] parameters){
-        return null;
+    public List<T> executeQuery(String query, Object[] parameters) throws StatementException {
+        try {
+            PreparedStatement statement = getConnection().prepareStatement(query);
+            if (parameters != null)
+                for (int i = 0; i < parameters.length; ++i)
+                    statement.setObject(i+1, parameters[i]);
+
+            ResultSet resultSet = statement.executeQuery();
+            List<T> resList = new ArrayList<>();
+            while (resultSet.next()){
+                resList.add(row2object(resultSet));
+            }
+            return resList;
+        } catch (SQLException e) {
+            throw new StatementException(e.getMessage(), e);
+        }
     }
 
     public T executeQueryUnique(String query, Object[] parameters) throws StatementException {
