@@ -67,7 +67,7 @@ public class DeparturesDaoSQLImpl extends AbstractDao<Departures> implements Dep
     @Override
     public List<Departures> searchByStation(String location) {
         List<Departures> list = new ArrayList<>();
-        String query = "SELECT d.* FROM Departures d WHERE d.Start_station_ID = ANY (SELECT ts.Train_stations_ID FROM Train_stations ts WHERE ts.Location = ?)";
+        String query = "SELECT d.* FROM Departures d WHERE d.Start_station_ID = ANY (SELECT ts.ID FROM Train_stations ts WHERE ts.Location = ?)";
         try {
             PreparedStatement statement = getConnection().prepareStatement(query);
             statement.setString(1,location);
