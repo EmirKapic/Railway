@@ -52,9 +52,8 @@ public class MainWindowNewController {
 
     public void searchButtonClicked(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLFiles/departureSearch.fxml"));
+        loader.setController(new TicketSearchController(entryChoice.getValue().toString(), endChoice.getValue().toString()));
         Parent root = loader.load();
-        TicketSearchController tctrl = loader.getController();
-        tctrl.setMainLabel("All tickets from " + entryChoice.getValue() + " to " + endChoice.getValue());
         stage = (Stage)(((Node)actionEvent.getSource()).getScene().getWindow());
         scene = new Scene(root);
         stage.setScene(scene);

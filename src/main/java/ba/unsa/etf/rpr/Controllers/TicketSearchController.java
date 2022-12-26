@@ -1,5 +1,8 @@
 package ba.unsa.etf.rpr.Controllers;
 
+import ba.unsa.etf.rpr.Dao.DaoFactory;
+import ba.unsa.etf.rpr.Domain.Departures;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -12,70 +15,91 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import org.controlsfx.control.spreadsheet.Grid;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TicketSearchController {
     public Label mainLabel;
+
+    public TicketSearchController(String startLocation, String endLocation) {
+        this.startLocation.set(startLocation);
+        this.endLocation.set(endLocation);
+    }
+
+    private SimpleStringProperty startLocation = new SimpleStringProperty(" !");
+    private SimpleStringProperty endLocation = new SimpleStringProperty(" !");
+
+    private List<Departures> departuresList;
+
     public VBox mainbox;
+
+
+    public String getStartLocation() {
+        return startLocation.get();
+    }
+
+    public SimpleStringProperty startLocationProperty() {
+        return startLocation;
+    }
+
+    public void setStartLocation(String startLocation) {
+        this.startLocation.set(startLocation);
+    }
+
+    public String getEndLocation() {
+        return endLocation.get();
+    }
+
+    public SimpleStringProperty endLocationProperty() {
+        return endLocation;
+    }
+
+    public void setEndLocation(String endLocation) {
+        this.endLocation.set(endLocation);
+    }
 
     @FXML
     public void initialize(){
-        Label time = new Label();
-        time.setText("08:30");
-        time.getStyleClass().add("time");
-        //time.setFont(new Font("Century", 29));
+        List<Departures> departuresList = DaoFactory.departuresDao().searchByStation(startLocationProperty().get());
+        List<String> times = new ArrayList<>();
+        this.mainLabel.setText("All departures from " + startLocationProperty().get() + " to " + endLocationProperty().get());
+        for (int i = 0; i < departuresList.size(); ++i){
+            Label start = new Label(); Label end = new Label();
+            start.setText(startLocationProperty().get()); end.setText(endLocationProperty().get());
+            Label time = new Label();
+            time.setText("08:30");
+            time.getStyleClass().add("time");
 
-        Label time2 = new Label();
-        time2.setText("15:00");
-        time2.getStyleClass().add("time");
-        //time2.setFont(new Font("Century", 29));
+            Label time2 = new Label();
+            time2.setText("15:00");
+            time2.getStyleClass().add("time");
 
-        Label length = new Label();
-        length.setText("2h50min");
-        length.getStyleClass().add("length");
+            Label length = new Label();
+            length.setText("2h50min");
+            length.getStyleClass().add("length");
 
+            start.getStyleClass().add("city");
 
-        Label start = new Label();
-        start.setText("Sarajevo");
-        start.getStyleClass().add("city");
+            end.getStyleClass().add("city");
 
+            Label lenText = new Label();
+            lenText.setText("Length");
+            lenText.getStyleClass().add("lenText");
 
-        Label end = new Label();
-        end.setText("Mostar");
-        end.getStyleClass().add("city");
+            GridPane next = new GridPane();
+            next.setHgap(90);
+            next.getStyleClass().add("departure");
+            next.add(time,0,0);
+            next.add(length, 1, 0);
+            next.add(time2, 2, 0);
+            next.add(start, 0, 1);
+            next.add(lenText, 1, 1);
+            next.add(end,2,1);
+            VBox.setMargin(next, new Insets(10,0,10,0));
 
-        Label lenText = new Label();
-        lenText.setText("Length");
-        lenText.getStyleClass().add("lenText");
+            mainbox.getChildren().addAll(next);
+        }
 
-        /*HBox upper = new HBox();
-        upper.getChildren().addAll(time,length, time2);
-        upper.setSpacing(120);
-
-
-
-        HBox lower = new HBox();
-        lower.getChildren().addAll(start, lenText, end);
-        lower.setSpacing(145);
-
-        VBox nextOne = new VBox();
-        nextOne.getChildren().addAll(upper,lower);
-        VBox.setMargin(nextOne, new Insets(10, 0 , 0 , 10));
-        nextOne.getStyleClass().add("departure");*/
-
-        GridPane next = new GridPane();
-        next.setHgap(90);
-        next.getStyleClass().add("departure");
-        next.add(time,0,0);
-        next.add(length, 1, 0);
-        next.add(time2, 2, 0);
-        next.add(start, 0, 1);
-        next.add(lenText, 1, 1);
-        next.add(end,2,1);
-        VBox.setMargin(next, new Insets(10,0,10,0));
-
-
-
-
-        mainbox.getChildren().addAll(next);
 
     }
 
