@@ -59,6 +59,7 @@ public class PassengersDaoSQLImpl extends AbstractDao<Passengers> implements Pas
         return null;
     }
 
+    @Override
     public Passengers getByUsername(String username){
         List<Passengers> allPass = null;
         try {
