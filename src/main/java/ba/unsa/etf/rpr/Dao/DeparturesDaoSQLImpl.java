@@ -124,7 +124,7 @@ public class DeparturesDaoSQLImpl extends AbstractDao<Departures> implements Dep
     }
 
     public String getCity(int id){
-        String query = "SELECT t.Location FROM FROM Departures d JOIN Train_stations t ON d.Start_station_ID = t.ID WHERE d.ID = ?";
+        String query = "SELECT t.Location FROM Departures d JOIN Train_stations t ON d.Start_station_ID = t.ID WHERE d.ID = ?";
         try {
             PreparedStatement statement = getConnection().prepareStatement(query);
             statement.setInt(1, id);
