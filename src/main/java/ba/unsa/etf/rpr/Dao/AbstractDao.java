@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr.Dao;
 
+import ba.unsa.etf.rpr.DBConnection;
 import ba.unsa.etf.rpr.Exceptions.StatementException;
 import ba.unsa.etf.rpr.IDable;
 
@@ -13,17 +14,7 @@ public abstract class AbstractDao<T extends IDable> implements Dao<T>{
     private String tableName;
     public AbstractDao(String tableName){
         this.tableName = tableName;
-        Properties p = new Properties();
-        try {
-            p.load(ClassLoader.getSystemResource("db.properties").openStream());
-            try {
-                this.connection = DriverManager.getConnection(p.getProperty("url"), p.getProperty("user"), p.getProperty("password"));
-            } catch (SQLException e) {
-                System.out.println(e.getMessage() + "\nCould not open the connection to database!");
-            }
-        } catch (IOException e) {
-            System.out.println("Could not open properties file!");
-        }
+        connection = DBConnection.getInstance().getConnection();
     }
 
     public Connection getConnection() {
