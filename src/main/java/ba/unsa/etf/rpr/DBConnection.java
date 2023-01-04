@@ -9,6 +9,7 @@ import java.util.Properties;
 public class DBConnection {
 
     private static DBConnection dbObject;
+    private Connection connection;
     private DBConnection(){
 
     }
@@ -20,11 +21,12 @@ public class DBConnection {
     }
 
     public Connection getConnection(){
-        Connection connection = null;
-        Properties p = new Properties();
         try {
-            p.load(ClassLoader.getSystemResource("db.properties").openStream());
-            connection = DriverManager.getConnection(p.getProperty("url"), p.getProperty("user"), p.getProperty("password"));
+            if (connection == null){
+                Properties p = new Properties();
+                p.load(ClassLoader.getSystemResource("db.properties").openStream());
+                connection = DriverManager.getConnection(p.getProperty("url"), p.getProperty("user"), p.getProperty("password"));
+            }
             return connection;
         } catch (IOException | SQLException e) {
             throw new RuntimeException(e);
