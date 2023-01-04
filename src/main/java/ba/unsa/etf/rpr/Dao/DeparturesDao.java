@@ -21,5 +21,6 @@ public interface DeparturesDao extends Dao<Departures> {
      */
     List<Departures> searchByStation(String location);
     List<Departures> searchByUser(int userID);
-    public String getCity(int id);
+    public String getStartCity(int id);
+    public String getEndCity(int id);
 }
