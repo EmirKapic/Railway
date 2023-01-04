@@ -48,7 +48,7 @@
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </bottom>
    <center>
-      <VBox prefHeight="605.0" prefWidth="1158.0" BorderPane.alignment="CENTER">
+      <VBox fx:id="mainbox" prefHeight="605.0" prefWidth="1158.0" BorderPane.alignment="CENTER">
          <children>
             <Label prefHeight="49.0" prefWidth="229.0" text="Your tickets">
                <font>
