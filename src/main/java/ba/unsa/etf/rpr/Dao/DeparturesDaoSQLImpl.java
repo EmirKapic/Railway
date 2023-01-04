@@ -93,6 +93,36 @@ public class DeparturesDaoSQLImpl extends AbstractDao<Departures> implements Dep
         return null;
     }
 
+    @Override
+    public List<Departures> searchByUser(int userID) {
+        List<Departures> list = new ArrayList<>();
+        String query = "SELECT d.* FROM Departures d WHERE d.ID = ANY (SELECT t.Departure_ID FROM Tickets t WHERE t.Passenger_ID = ?)";
+
+        try {
+            PreparedStatement statement = this.getConnection().prepareStatement(query);
+            statement.setInt(1, userID);
+            ResultSet result = statement.executeQuery();
+            while (result.next()){
+                Departures dep = new Departures();
+                dep.setID(result.getInt(1));
+                dep.setStartDate(result.getObject(2, LocalDateTime.class));
+                dep.setEndDate(result.getObject(3, LocalDateTime.class));
+                dep.setLength(result.getString(4));
+                dep.setTicketsLeft(result.getInt(5));
+                dep.setStartStationID(result.getInt(6));
+                dep.setEndStationID(result.getInt(7));
+                dep.setTicketsTotal(result.getInt(8));
+                dep.setStartTime(dep.getStartDate().toString().split("T")[1]);
+                dep.setEndTime(dep.getEndDate().toString().split("T")[1]);
+                list.add(dep);
+            }
+            return list;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
     public String getCity(int id){
         String query = "SELECT t.Location FROM FROM Departures d JOIN Train_stations t ON d.Start_station_ID = t.ID WHERE d.ID = ?";
         try {

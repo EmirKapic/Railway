@@ -20,4 +20,5 @@ public interface DeparturesDao extends Dao<Departures> {
      * @return list of all departures from the specified station
      */
     List<Departures> searchByStation(String location);
+    List<Departures> searchByUser(int userID);
 }
