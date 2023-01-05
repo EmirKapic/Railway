@@ -2,11 +2,18 @@ package ba.unsa.etf.rpr.Controllers;
 
 import ba.unsa.etf.rpr.Dao.DaoFactory;
 import ba.unsa.etf.rpr.Domain.Departures;
+import ba.unsa.etf.rpr.Exceptions.StatementException;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,10 +34,10 @@ public class MyTicketsController {
 
     List<Departures> departuresList;
     public VBox mainbox;
+    public Button homeBtn;
 
 
     public void initialize(){
-        System.out.println(userID);
         departuresList = DaoFactory.departuresDao().searchByUser(userID);
         //Add case for when user has no tickets right now
         List<String> startTimes = new ArrayList<>();
@@ -59,7 +66,8 @@ public class MyTicketsController {
             time2.getStyleClass().add("time");
 
             Label length = new Label();
-            length.setText(lengthList.get(i));
+            String[] tmp = lengthList.get(i).split(":");
+            length.setText(tmp[0] + "h " + tmp[1] + "min");
             length.getStyleClass().add("length");
 
             start.getStyleClass().add("city");
@@ -71,7 +79,22 @@ public class MyTicketsController {
             lenText.getStyleClass().add("lenText");
 
             Label startDate = new Label();
-            startDate.setText(departuresList.get(i).getStartDate().toString());
+            startDate.setText(departuresList.get(i).getStartDate().toString().split("T")[0]);
+            startDate.getStyleClass().add("dateLabel");
+
+            /*
+            Button buyBtn = new Button();
+            buyBtn.setText("Buy now!");
+            buyBtn.setPadding(new Insets(10, 10, 10, 10));
+            int finalI = i;
+            buyBtn.setOnAction(actionEvent -> ticketBuy(departuresList.get(finalI)));
+             */
+
+            Button undoBtn = new Button();
+            undoBtn.setText("Undo purchase");
+            undoBtn.setPadding(new Insets(10, 10, 10, 10));
+            int finalI = i;
+            undoBtn.setOnAction(actionEvent -> ticketUndo(departuresList.get(finalI)));
 
             GridPane next = new GridPane();
             next.setHgap(90);
@@ -88,7 +111,26 @@ public class MyTicketsController {
             mainbox.getChildren().addAll(next);
         }
 
+        homeBtn.setOnAction(actionEvent -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLFiles/mainWindowRevamp.fxml"));
+                Parent root = loader.load();
+                MainWindowNewController ctrl = loader.getController();
+                ctrl.setUser(DaoFactory.passengersDao().getById(userID));
+                Stage stage = (Stage)mainbox.getScene().getWindow();
+                stage.close();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException | StatementException e) {
+                throw new RuntimeException(e);
+            }
 
+        });
+
+    }
+
+
+    private void ticketUndo(Departures d){
 
     }
 

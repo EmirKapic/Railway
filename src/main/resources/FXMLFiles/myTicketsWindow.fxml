@@ -19,7 +19,7 @@
                   <Font name="Berlin Sans FB" size="27.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="86.0" text="Home">
+            <Button fx:id="homeBtn" mnemonicParsing="false" prefHeight="48.0" prefWidth="86.0" text="Home">
                <font>
                   <Font name="Yu Gothic Regular" size="12.0" />
                </font>
