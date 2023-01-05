@@ -71,6 +71,15 @@ public class MainWindowNewController {
     }
 
     public void myTicketsClicked(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLFiles/myTicketsWindow.fxml"));
+            loader.setController(new MyTicketsController(user.getID()));
+            stage = (Stage)(((Node)actionEvent.getSource()).getScene().getWindow());
+            stage.setScene(new Scene(loader.load()));
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }
