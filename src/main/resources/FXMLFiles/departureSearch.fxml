@@ -19,7 +19,7 @@
                   <Font name="Berlin Sans FB" size="27.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="86.0" text="Home">
+            <Button fx:id="homeBtn" mnemonicParsing="false" prefHeight="48.0" prefWidth="86.0" text="Home">
                <HBox.margin>
                   <Insets left="950.0" top="20.0" />
                </HBox.margin>
