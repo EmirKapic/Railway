@@ -38,9 +38,35 @@ public class MyTicketsController {
     public VBox mainbox;
     public Button homeBtn;
 
+    private void setNoTicketsLabel(){
+        Label label = new Label();
+        label.setText("You haven't purchased any tickets yet");
+        label.getStyleClass().add("noTickets");
+        mainbox.getChildren().add(label);
+    }
+
 
     public void initialize(){
+        homeBtn.setOnAction(actionEvent -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLFiles/mainWindowRevamp.fxml"));
+                Parent root = loader.load();
+                MainWindowNewController ctrl = loader.getController();
+                ctrl.setUser(DaoFactory.passengersDao().getById(userID));
+                Stage stage = (Stage)mainbox.getScene().getWindow();
+                stage.close();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException | StatementException e) {
+                throw new RuntimeException(e);
+            }
+
+        });
         departuresList = DaoFactory.departuresDao().searchByUser(userID);
+        if (departuresList.size() == 0){
+            setNoTicketsLabel();
+            return;
+        }
         //Add case for when user has no tickets right now
         List<String> startTimes = new ArrayList<>();
         List<String> endTimes = new ArrayList<>();
@@ -112,21 +138,7 @@ public class MyTicketsController {
             mainbox.getChildren().addAll(next);
         }
 
-        homeBtn.setOnAction(actionEvent -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLFiles/mainWindowRevamp.fxml"));
-                Parent root = loader.load();
-                MainWindowNewController ctrl = loader.getController();
-                ctrl.setUser(DaoFactory.passengersDao().getById(userID));
-                Stage stage = (Stage)mainbox.getScene().getWindow();
-                stage.close();
-                stage.setScene(new Scene(root));
-                stage.show();
-            } catch (IOException | StatementException e) {
-                throw new RuntimeException(e);
-            }
 
-        });
 
     }
 
