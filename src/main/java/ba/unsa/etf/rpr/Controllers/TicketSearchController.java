@@ -80,17 +80,18 @@ public class TicketSearchController {
 
 
     private void filterDepartures(List<Departures> current){
-        if (nullCheck(current))return;
+        if (current == null || current.size() == 0)return;
         for (int i = 0; i < current.size(); ++i){
             String curDepCity = DaoFactory.departuresDao().getEndCity(current.get(i).getID());
             if (!curDepCity.equals(endLocationProperty().get())){
                 current.remove(i);
+                --i;
             }
         }
     }
 
     private void filterDepartures2(List<Departures> current){
-
+        if (current == null || current.size() == 0)return;
         List<Departures> byUser = DaoFactory.departuresDao().searchByUser(userID);
         if (nullCheck(byUser))return;
         int tmp1 = current.size();
@@ -100,18 +101,46 @@ public class TicketSearchController {
                 if (current.get(i).equals(byUser.get(j))){
                     current.remove(i); --j;
                     --tmp1;
-                    if (tmp1 == 0)return;
+                    if (tmp1 == 0 || i >= tmp1)return;
                 }
             }
         }
     }
 
+    private void setNoTicketsLabel(){
+        Label label = new Label();
+        label.setText("Sorry! No tickets from " + getStartLocation() + " to " + getEndLocation() + " are currently available. Please check later");
+        label.getStyleClass().add("noTickets");
+        mainbox.getChildren().add(label);
+    }
+
     @FXML
     public void initialize(){
+        homeBtn.setOnAction(actionEvent -> {
+            try {
+                Passengers user = DaoFactory.passengersDao().getById(userID);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLFiles/mainWindowRevamp.fxml"));
+                Parent root = loader.load();
+                MainWindowNewController ctrl = loader.getController();
+                ctrl.setUser(user);
+
+                Stage stage = (Stage)mainbox.getScene().getWindow();
+                stage.close();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException | StatementException e) {
+                throw new RuntimeException(e);
+            }
+
+        });
+        this.mainLabel.setText("All departures from " + startLocationProperty().get() + " to " + endLocationProperty().get());
         List<Departures> departuresList = DaoFactory.departuresDao().searchByStation(startLocationProperty().get());
         filterDepartures(departuresList);
-        if (nullCheck(departuresList))return;
         filterDepartures2(departuresList);
+        if (nullCheck(departuresList)) {
+            setNoTicketsLabel();
+            return;
+        }
         List<String> startTimes = new ArrayList<>();
         List<String> endTimes = new ArrayList<>();
         List<String> lengthList = new ArrayList<>();
@@ -120,7 +149,7 @@ public class TicketSearchController {
             endTimes.add(d.getEndTime().toString());
             lengthList.add(d.getLength());
         }
-        this.mainLabel.setText("All departures from " + startLocationProperty().get() + " to " + endLocationProperty().get());
+
         for (int i = 0; i < departuresList.size(); ++i){
             Label start = new Label(); Label end = new Label();
             start.setText(startLocationProperty().get()); end.setText(endLocationProperty().get());
@@ -178,23 +207,7 @@ public class TicketSearchController {
             mainbox.getChildren().addAll(next);
         }
 
-        homeBtn.setOnAction(actionEvent -> {
-            try {
-                Passengers user = DaoFactory.passengersDao().getById(userID);
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLFiles/mainWindowRevamp.fxml"));
-                Parent root = loader.load();
-                MainWindowNewController ctrl = loader.getController();
-                ctrl.setUser(user);
 
-                Stage stage = (Stage)mainbox.getScene().getWindow();
-                stage.close();
-                stage.setScene(new Scene(root));
-                stage.show();
-            } catch (IOException | StatementException e) {
-                throw new RuntimeException(e);
-            }
-
-        });
     }
 
     private boolean nullCheck(List<Departures> d){
