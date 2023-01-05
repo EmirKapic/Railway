@@ -3,6 +3,7 @@ package ba.unsa.etf.rpr.Controllers;
 import ba.unsa.etf.rpr.Dao.DaoFactory;
 import ba.unsa.etf.rpr.Dao.PassengersDaoSQLImpl;
 import ba.unsa.etf.rpr.Domain.Passengers;
+import com.sun.tools.javac.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -54,9 +55,14 @@ public class Login {
         }
 
         if (correctFlag){
-            Parent root = FXMLLoader.load(getClass().getResource("/FXMLFiles/mainWindowRevamp.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLFiles/mainWindowRevamp.fxml"));
+            Parent root = loader.load();
+            MainWindowNewController ctrl = loader.getController();
+            ctrl.setUser(user);
+
             stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
             stage.close();
+
             Stage newStage = new Stage();
             scene = new Scene(root);
             newStage.setScene(scene);
