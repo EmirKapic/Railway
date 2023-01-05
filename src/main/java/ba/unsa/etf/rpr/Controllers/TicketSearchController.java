@@ -2,9 +2,14 @@ package ba.unsa.etf.rpr.Controllers;
 
 import ba.unsa.etf.rpr.Dao.DaoFactory;
 import ba.unsa.etf.rpr.Domain.Departures;
+import ba.unsa.etf.rpr.Domain.Tickets;
+import ba.unsa.etf.rpr.Exceptions.StatementException;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -95,7 +100,8 @@ public class TicketSearchController {
             time2.getStyleClass().add("time");
 
             Label length = new Label();
-            length.setText(lengthList.get(i));
+            String[] tmp = lengthList.get(i).split(":");
+            length.setText(tmp[0] + ":" + tmp[1]);
             length.getStyleClass().add("length");
 
             start.getStyleClass().add("city");
@@ -114,6 +120,14 @@ public class TicketSearchController {
             startDate.setText(departuresList.get(i).getStartDate().toString().split("T")[0]);
             startDate.getStyleClass().add("dateLabel");
 
+
+
+            Button buyBtn = new Button();
+            buyBtn.setText("Buy now!");
+            buyBtn.setPadding(new Insets(10, 10, 10, 10));
+            int finalI = i;
+            buyBtn.setOnAction(actionEvent -> ticketBuy(departuresList.get(finalI)));
+
             GridPane next = new GridPane();
             next.setHgap(90);
             next.getStyleClass().add("departure");
@@ -125,6 +139,7 @@ public class TicketSearchController {
             next.add(lenText, 1, 1);
             next.add(end,2,1);
             next.add(dateLabel, 3, 1);
+            next.add(buyBtn, 4, 0, 1, 2);
             VBox.setMargin(next, new Insets(10,0,10,0));
 
             mainbox.getChildren().addAll(next);
@@ -132,6 +147,21 @@ public class TicketSearchController {
 
 
     }
+
+    private void ticketBuy(Departures dep){
+        Tickets newTicket = new Tickets(22, 5, dep.getID(), userID);
+        try {
+            DaoFactory.ticketsDao().add(newTicket);
+        } catch (StatementException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("A critical error has occured while attempting to purchase ticket. Exiting now");
+            alert.showAndWait();
+            System.exit(1);
+        }
+
+    }
+
 
     public void setMainLabel(String label){
         mainLabel.setText(label);
