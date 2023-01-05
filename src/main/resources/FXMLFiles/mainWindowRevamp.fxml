@@ -17,7 +17,7 @@
    <top>
       <HBox prefHeight="223.0" prefWidth="1358.0" style="-fx-background-color: lightcyan;" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="278.0" prefWidth="1358.0" text="RAILWAY" HBox.hgrow="ALWAYS">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="278.0" prefWidth="1260.0" text="RAILWAY" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
@@ -28,6 +28,14 @@
                   <Insets />
                </opaqueInsets>
             </Label>
+            <Button mnemonicParsing="false" onAction="#myTicketsClicked" text="My tickets">
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Button>
          </children>
       </HBox>
    </top>
