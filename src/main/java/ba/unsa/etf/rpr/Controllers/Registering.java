@@ -60,7 +60,7 @@ public class Registering {
             alert.setHeaderText("Uspjesno ste se registrovali. Unesite sada vase podatke.");
             alert.showAndWait();
 
-            Parent root = FXMLLoader.load(getClass().getResource("/FXMLFiles/login.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/FXMLFiles/newLogin.fxml"));
             stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
