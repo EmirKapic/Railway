@@ -30,6 +30,7 @@ public class MyTicketsController {
 
 
     public void initialize(){
+        System.out.println(userID);
         departuresList = DaoFactory.departuresDao().searchByUser(userID);
         //Add case for when user has no tickets right now
         List<String> startTimes = new ArrayList<>();

@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr.Controllers;
 
 import ba.unsa.etf.rpr.Dao.TrainStationsDAOSQLImpl;
+import ba.unsa.etf.rpr.Domain.Passengers;
 import ba.unsa.etf.rpr.Domain.TrainStations;
 import ba.unsa.etf.rpr.Exceptions.StatementException;
 import javafx.event.ActionEvent;
@@ -26,6 +27,15 @@ public class MainWindowNewController {
     public ChoiceBox endChoice;
     private List<TrainStations> stations;
 
+    private Passengers user;
+
+    /*public MainWindowNewController(Passengers user){
+        this.user = user;
+    }*/
+
+    public void setUser(Passengers user) {
+        this.user = user;
+    }
 
     private List<String> getAllLocations(List<TrainStations> stat){
         List<String> cities = new ArrayList<>();
@@ -52,11 +62,15 @@ public class MainWindowNewController {
 
     public void searchButtonClicked(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLFiles/departureSearch.fxml"));
-        loader.setController(new TicketSearchController(entryChoice.getValue().toString(), endChoice.getValue().toString()));
+        loader.setController(new TicketSearchController(entryChoice.getValue().toString(), endChoice.getValue().toString(), user.getID()));
         Parent root = loader.load();
         stage = (Stage)(((Node)actionEvent.getSource()).getScene().getWindow());
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void myTicketsClicked(ActionEvent actionEvent) {
+
     }
 }

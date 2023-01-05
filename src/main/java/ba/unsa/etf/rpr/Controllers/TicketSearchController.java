@@ -20,10 +20,12 @@ import java.util.List;
 
 public class TicketSearchController {
     public Label mainLabel;
+    private int userID;
 
-    public TicketSearchController(String startLocation, String endLocation) {
+    public TicketSearchController(String startLocation, String endLocation, int userID) {
         this.startLocation.set(startLocation);
         this.endLocation.set(endLocation);
+        this.userID = userID;
     }
 
     private SimpleStringProperty startLocation = new SimpleStringProperty(" !");
@@ -60,6 +62,7 @@ public class TicketSearchController {
 
     @FXML
     public void initialize(){
+        System.out.println(userID);
         List<Departures> departuresList = DaoFactory.departuresDao().searchByStation(startLocationProperty().get());
         List<String> startTimes = new ArrayList<>();
         List<String> endTimes = new ArrayList<>();
