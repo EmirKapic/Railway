@@ -50,6 +50,7 @@ public class TicketSearchController {
     private List<Departures> departuresList;
 
     public VBox mainbox;
+    public Button homeBtn;
 
 
     public String getStartLocation() {
@@ -176,7 +177,21 @@ public class TicketSearchController {
             mainbox.getChildren().addAll(next);
         }
 
+        homeBtn.setOnAction(actionEvent -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLFiles/mainWindowRevamp.fxml"));
+                Parent root = loader.load();
+                MainWindowNewController ctrl = loader.getController();
+                ctrl.setUser(DaoFactory.passengersDao().getById(userID));
+                Stage stage = (Stage)mainbox.getScene().getWindow();
+                stage.close();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException | StatementException e) {
+                throw new RuntimeException(e);
+            }
 
+        });
     }
 
     private boolean nullCheck(List<Departures> d){
