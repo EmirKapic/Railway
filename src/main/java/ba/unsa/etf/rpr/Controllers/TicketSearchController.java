@@ -8,7 +8,11 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,11 +22,18 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import org.controlsfx.control.spreadsheet.Grid;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller for the ticket search screen. As you will notice the screen is mostly made through code. Reason for this is that I needed a
+ * variable number of GridPanes (to achieve the design i wanted to, didn't find a way to do it with ListView etc. TableView wasn't used
+ * because I don't like the headers. Has a somewhat large amount of code but most of it is just trivially creating buttons and such
+ */
 public class TicketSearchController {
     public Label mainLabel;
     private int userID;
@@ -67,6 +78,7 @@ public class TicketSearchController {
 
 
     private void filterDepartures(List<Departures> current){
+        if (nullCheck(current))return;
         for (int i = 0; i < current.size(); ++i){
             String curDepCity = DaoFactory.departuresDao().getEndCity(current.get(i).getID());
             if (!curDepCity.equals(endLocationProperty().get())){
@@ -75,10 +87,29 @@ public class TicketSearchController {
         }
     }
 
+    private void filterDepartures2(List<Departures> current){
+
+        List<Departures> byUser = DaoFactory.departuresDao().searchByUser(userID);
+        if (nullCheck(byUser))return;
+        int tmp1 = current.size();
+        int tmp2 = byUser.size();
+        for (int i = 0; i < tmp1; ++i){
+            for (int j = 0; j < tmp2; ++j){
+                if (current.get(i).equals(byUser.get(j))){
+                    current.remove(i); --j;
+                    --tmp1;
+                    if (tmp1 == 0)return;
+                }
+            }
+        }
+    }
+
     @FXML
     public void initialize(){
         List<Departures> departuresList = DaoFactory.departuresDao().searchByStation(startLocationProperty().get());
         filterDepartures(departuresList);
+        if (nullCheck(departuresList))return;
+        filterDepartures2(departuresList);
         List<String> startTimes = new ArrayList<>();
         List<String> endTimes = new ArrayList<>();
         List<String> lengthList = new ArrayList<>();
@@ -148,6 +179,10 @@ public class TicketSearchController {
 
     }
 
+    private boolean nullCheck(List<Departures> d){
+        return (d == null || d.size() == 0);
+    }
+
     private void ticketBuy(Departures dep){
         Tickets newTicket = new Tickets(22, 5, dep.getID(), userID);
         try {
@@ -157,14 +192,25 @@ public class TicketSearchController {
             alert.setHeaderText("Ticket purchased!");
             alert.setContentText("Thank you for using our services");
             alert.showAndWait();
+
+            //This restarts the window (not noticeable), which updates the list of departures and hides the ones which are already purchased
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLFiles/departureSearch.fxml"));
+            loader.setController(new TicketSearchController(getStartLocation(), getEndLocation(), userID));
+            Parent root = loader.load();
+            Stage stage = (Stage)mainbox.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+
         } catch (StatementException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
             alert.setHeaderText("A critical error has occured while attempting to purchase ticket. Exiting now");
             alert.showAndWait();
             System.exit(1);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-
     }
 
 
