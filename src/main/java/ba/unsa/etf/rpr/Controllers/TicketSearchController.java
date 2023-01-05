@@ -152,6 +152,11 @@ public class TicketSearchController {
         Tickets newTicket = new Tickets(22, 5, dep.getID(), userID);
         try {
             DaoFactory.ticketsDao().add(newTicket);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Success");
+            alert.setHeaderText("Ticket purchased!");
+            alert.setContentText("Thank you for using our services");
+            alert.showAndWait();
         } catch (StatementException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("ERROR");
