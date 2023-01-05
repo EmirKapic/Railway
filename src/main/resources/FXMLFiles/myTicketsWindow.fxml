@@ -61,6 +61,7 @@
             <URL value="@../CSSFiles/departuresList.css" />
             <URL value="@../CSSFiles/depListCities.css" />
             <URL value="@../CSSFiles/startDate.css" />
+            <URL value="@../CSSFiles/noTickets.css" />
          </stylesheets>
       </VBox>
    </center>
