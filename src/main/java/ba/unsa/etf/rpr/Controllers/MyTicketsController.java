@@ -2,11 +2,13 @@ package ba.unsa.etf.rpr.Controllers;
 
 import ba.unsa.etf.rpr.Dao.DaoFactory;
 import ba.unsa.etf.rpr.Domain.Departures;
+import ba.unsa.etf.rpr.Domain.Tickets;
 import ba.unsa.etf.rpr.Exceptions.StatementException;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -78,17 +80,14 @@ public class MyTicketsController {
             lenText.setText("Length");
             lenText.getStyleClass().add("lenText");
 
+            Label dateLabel = new Label();
+            dateLabel.setText("Date");
+            dateLabel.getStyleClass().add("city");
+
             Label startDate = new Label();
             startDate.setText(departuresList.get(i).getStartDate().toString().split("T")[0]);
             startDate.getStyleClass().add("dateLabel");
 
-            /*
-            Button buyBtn = new Button();
-            buyBtn.setText("Buy now!");
-            buyBtn.setPadding(new Insets(10, 10, 10, 10));
-            int finalI = i;
-            buyBtn.setOnAction(actionEvent -> ticketBuy(departuresList.get(finalI)));
-             */
 
             Button undoBtn = new Button();
             undoBtn.setText("Undo purchase");
@@ -106,6 +105,8 @@ public class MyTicketsController {
             next.add(start, 0, 1);
             next.add(lenText, 1, 1);
             next.add(end,2,1);
+            next.add(dateLabel, 3, 1);
+            next.add(undoBtn, 4, 0,1,2);
             VBox.setMargin(next, new Insets(10,0,10,0));
 
             mainbox.getChildren().addAll(next);
@@ -131,7 +132,34 @@ public class MyTicketsController {
 
 
     private void ticketUndo(Departures d){
+        try {
+            List<Tickets> all = DaoFactory.ticketsDao().getByDeparture(d.getID());
+            for(Tickets t : all){
+                if (t.getPassengerID() == userID){
+                    DaoFactory.ticketsDao().delete(t.getID());
+                    d.setTicketsLeft(d.getTicketsLeft() + 1);
+                    DaoFactory.departuresDao().update(d);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Success");
+                    alert.setHeaderText("You have successfully undoed Your purchase");
+                    alert.showAndWait();
 
+
+                    //Restart the window and update it
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLFiles/myTicketsWindow.fxml"));
+                    loader.setController(new MyTicketsController(userID));
+                    Stage stage = (Stage)mainbox.getScene().getWindow();
+                    stage.setScene(new Scene(loader.load()));
+                    stage.show();
+                }
+            }
+        } catch (StatementException | IOException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("A critical error has occured while attempting to undo Your ticket. Exiting now");
+            alert.showAndWait();
+            System.exit(1);
+        }
     }
 
 
