@@ -2,6 +2,7 @@ package ba.unsa.etf.rpr.Controllers;
 
 import ba.unsa.etf.rpr.Dao.DaoFactory;
 import ba.unsa.etf.rpr.Domain.Departures;
+import ba.unsa.etf.rpr.Domain.Passengers;
 import ba.unsa.etf.rpr.Domain.Tickets;
 import ba.unsa.etf.rpr.Exceptions.StatementException;
 import javafx.beans.property.SimpleStringProperty;
@@ -179,10 +180,12 @@ public class TicketSearchController {
 
         homeBtn.setOnAction(actionEvent -> {
             try {
+                Passengers user = DaoFactory.passengersDao().getById(userID);
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLFiles/mainWindowRevamp.fxml"));
                 Parent root = loader.load();
                 MainWindowNewController ctrl = loader.getController();
-                ctrl.setUser(DaoFactory.passengersDao().getById(userID));
+                ctrl.setUser(user);
+
                 Stage stage = (Stage)mainbox.getScene().getWindow();
                 stage.close();
                 stage.setScene(new Scene(root));
@@ -200,7 +203,9 @@ public class TicketSearchController {
 
     private void ticketBuy(Departures dep){
         Tickets newTicket = new Tickets(22, 5, dep.getID(), userID);
+        dep.setTicketsLeft(dep.getTicketsLeft()- 1);
         try {
+            DaoFactory.departuresDao().update(dep);
             DaoFactory.ticketsDao().add(newTicket);
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
