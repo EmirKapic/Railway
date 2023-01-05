@@ -55,6 +55,7 @@
          <stylesheets>
             <URL value="@../CSSFiles/departuresList.css" />
             <URL value="@../CSSFiles/depListCities.css" />
+            <URL value="@../CSSFiles/startDate.css" />
          </stylesheets>
       </VBox>
    </center>

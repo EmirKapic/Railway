@@ -60,10 +60,20 @@ public class TicketSearchController {
         this.endLocation.set(endLocation);
     }
 
+
+    private void filterDepartures(List<Departures> current){
+        for (int i = 0; i < current.size(); ++i){
+            String curDepCity = DaoFactory.departuresDao().getEndCity(current.get(i).getID());
+            if (!curDepCity.equals(endLocationProperty().get())){
+                current.remove(i);
+            }
+        }
+    }
+
     @FXML
     public void initialize(){
-        System.out.println(userID);
         List<Departures> departuresList = DaoFactory.departuresDao().searchByStation(startLocationProperty().get());
+        filterDepartures(departuresList);
         List<String> startTimes = new ArrayList<>();
         List<String> endTimes = new ArrayList<>();
         List<String> lengthList = new ArrayList<>();
@@ -96,8 +106,13 @@ public class TicketSearchController {
             lenText.setText("Length");
             lenText.getStyleClass().add("lenText");
 
+            Label dateLabel = new Label();
+            dateLabel.setText("Date");
+            dateLabel.getStyleClass().add("city");
+
             Label startDate = new Label();
-            startDate.setText(departuresList.get(i).getStartDate().toString());
+            startDate.setText(departuresList.get(i).getStartDate().toString().split("T")[0]);
+            startDate.getStyleClass().add("dateLabel");
 
             GridPane next = new GridPane();
             next.setHgap(90);
@@ -109,6 +124,7 @@ public class TicketSearchController {
             next.add(start, 0, 1);
             next.add(lenText, 1, 1);
             next.add(end,2,1);
+            next.add(dateLabel, 3, 1);
             VBox.setMargin(next, new Insets(10,0,10,0));
 
             mainbox.getChildren().addAll(next);
