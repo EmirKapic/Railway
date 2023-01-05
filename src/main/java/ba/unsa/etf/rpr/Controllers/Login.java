@@ -1,5 +1,6 @@
 package ba.unsa.etf.rpr.Controllers;
 
+import ba.unsa.etf.rpr.Dao.DaoFactory;
 import ba.unsa.etf.rpr.Dao.PassengersDaoSQLImpl;
 import ba.unsa.etf.rpr.Domain.Passengers;
 import javafx.event.ActionEvent;
@@ -44,8 +45,8 @@ public class Login {
             emptyField();
         } //Questionable but lets keep it
 
-        PassengersDaoSQLImpl psql = new PassengersDaoSQLImpl();
-        Passengers user = psql.getByUsername(usernameField.getText());
+        //PassengersDaoSQLImpl psql = new PassengersDaoSQLImpl();
+        Passengers user = DaoFactory.passengersDao().getByUsername(usernameField.getText()); //psql.getByUsername(usernameField.getText());
 
         if (correctFlag && (user == null || !user.getPassword().equals(passwordField.getText()))) {
             correctFlag = false;
