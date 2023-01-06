@@ -42,6 +42,16 @@ public class RegisteringController {
 
 
     public void goBackBtnClicked(ActionEvent actionEvent) {
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("/FXMLFiles/newLogin.fxml"));
+            Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            stage.setResizable(false);
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void registerBtnClicked(ActionEvent actionEvent) {
