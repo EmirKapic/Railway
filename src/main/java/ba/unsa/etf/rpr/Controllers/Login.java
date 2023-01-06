@@ -66,6 +66,7 @@ public class Login {
             Stage newStage = new Stage();
             scene = new Scene(root);
             newStage.setScene(scene);
+            newStage.setResizable(false);
             newStage.show();
         }
     }
