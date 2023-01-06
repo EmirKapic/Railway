@@ -59,6 +59,7 @@
               <rowConstraints>
                 <RowConstraints maxHeight="213.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="213.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="213.0" minHeight="10.0" prefHeight="59.0" vgrow="SOMETIMES" />
                   <RowConstraints maxHeight="385.0" minHeight="10.0" prefHeight="382.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
@@ -92,7 +93,24 @@
                         <Insets top="15.0" />
                      </GridPane.margin>
                   </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                  <Label GridPane.columnIndex="2" GridPane.rowIndex="2" />
                   <Button mnemonicParsing="false" onAction="#searchButtonClicked" prefHeight="62.0" prefWidth="130.0" text="Search" GridPane.columnIndex="2" GridPane.rowSpan="2" />
+                  <Label fx:id="warningMsg3" style="-fx-text-fill: red;" text="Start and end station can't be the same" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Yu Gothic Regular" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="warningMsg1" style="-fx-text-fill: red;" text="Can't be empty" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Yu Gothic Regular" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="warningMsg2" style="-fx-text-fill: red;" text="Can't be empty" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Yu Gothic Regular" size="12.0" />
+                     </font>
+                  </Label>
                </children>
             </GridPane>
             <Label prefHeight="45.0" prefWidth="455.0" text="Traveling made easy" GridPane.columnIndex="1">
