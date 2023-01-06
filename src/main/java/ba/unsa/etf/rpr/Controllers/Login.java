@@ -70,10 +70,11 @@ public class Login {
         }
     }
     public void registerButtonClick(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/FXMLFiles/registering.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/FXMLFiles/newRegister.fxml"));
         stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 }
