@@ -2,11 +2,20 @@ package ba.unsa.etf.rpr.Controllers;
 
 import ba.unsa.etf.rpr.Dao.DaoFactory;
 import ba.unsa.etf.rpr.Domain.Passengers;
+import ba.unsa.etf.rpr.Exceptions.StatementException;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class RegisteringController {
 
@@ -44,6 +53,29 @@ public class RegisteringController {
       }
 
       if (usernameTaken())return;
+
+      try {
+          DaoFactory.passengersDao().add(new Passengers(5, newName.getText(), newSurname.getText(), newPass.getText(), newUsername.getText()));
+          Alert alert = new Alert(Alert.AlertType.INFORMATION);
+          alert.setTitle("Success");
+          alert.setHeaderText("You have registered your account successfully. Please login now.");
+          alert.showAndWait();
+
+          Parent root = FXMLLoader.load(getClass().getResource("/FXMLFiles/newLogin.fxml"));
+          Stage stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+          stage.setResizable(false);
+          stage.setScene(new Scene(root));
+          stage.show();
+
+      } catch (StatementException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("A critical error has occured while trying to register a new user. Exiting now");
+            alert.showAndWait();
+            System.exit(1);
+      } catch (IOException e) {
+          throw new RuntimeException(e);
+      }
 
     }
 
