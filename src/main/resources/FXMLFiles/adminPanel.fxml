@@ -42,8 +42,8 @@
             <GridPane prefHeight="297.0" prefWidth="761.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="285.0" minWidth="98.0" prefWidth="185.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="428.0" minWidth="10.0" prefWidth="216.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="360.0" minWidth="10.0" prefWidth="360.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="428.0" minWidth="10.0" prefWidth="209.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="367.0" minWidth="10.0" prefWidth="367.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -113,6 +113,21 @@
                      </font>
                   </Label>
                   <Label fx:id="warningMsg4" style="-fx-text-fill: red;" text="Maximum number of tickets is 100" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="Yu Gothic Regular" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="warningMsg5" style="-fx-text-fill: red;" text="Start station can't be empty" GridPane.columnIndex="2">
+                     <font>
+                        <Font name="Yu Gothic Regular" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="warningMsg6" style="-fx-text-fill: red;" text="End station can't be empty" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Yu Gothic Regular" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="warningMsg7" style="-fx-text-fill: red;" text="Date can't be empty" GridPane.columnIndex="2" GridPane.rowIndex="2">
                      <font>
                         <Font name="Yu Gothic Regular" size="16.0" />
                      </font>
