@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr.Controllers;
 
 import ba.unsa.etf.rpr.Dao.DaoFactory;
+import ba.unsa.etf.rpr.Domain.Departures;
 import ba.unsa.etf.rpr.Domain.TrainStations;
 import ba.unsa.etf.rpr.Exceptions.StatementException;
 import javafx.event.ActionEvent;
@@ -24,6 +25,9 @@ public class AdminPaneController {
     public Label warningMsg2;
     public Label warningMsg3;
     public Label warningMsg4;
+    public Label warningMsg5;
+    public Label warningMsg6;
+    public Label warningMsg7;
 
 
     public void initialize(){
@@ -31,6 +35,9 @@ public class AdminPaneController {
         warningMsg2.setVisible(false);
         warningMsg3.setVisible(false);
         warningMsg4.setVisible(false);
+        warningMsg5.setVisible(false);
+        warningMsg6.setVisible(false);
+        warningMsg7.setVisible(false);
         try {
             List<String> locations = getAllLocations(DaoFactory.trainStationsDao().getAll());
             startChoice.getItems().addAll(locations);
@@ -53,18 +60,25 @@ public class AdminPaneController {
 
     public void depAddBtn(ActionEvent actionEvent) {
 
-        if (checkFields())return;
+        if (!checkFields())return;
 
-        if (startChoice.getValue() == endChoice.getValue()){
-            Alert sameChoice = new Alert(Alert.AlertType.ERROR);
-            sameChoice.setTitle("Error");
-            sameChoice.setHeaderText("Start and end station can't be the same one");
-            sameChoice.showAndWait();
-        }
+        if (!checkStations())return;
+
+
+
+        LocalDate start = datePick.getValue();
+        LocalDate end = datePick.getValue();
+
+        if (onTwoDays()) end = end.plusDays(1);
+
 
 
     }
 
+    /**
+     * Checks if any of the fields are empty
+     * @return true if everything is okay, false otherwise
+     */
     private boolean checkFields(){
         boolean badInput = false;
         if (!checkTime(startTime.getText())){
@@ -98,13 +112,47 @@ public class AdminPaneController {
             badInput = true;
         }
 
+        if (startChoice.getValue() == null){
+            warningMsg5.setVisible(true);
+            badInput = true;
+        }
+        else warningMsg5.setVisible(false);
+
+        if (endChoice.getValue() == null){
+            warningMsg6.setVisible(true);
+            badInput = true;
+        }
+        else warningMsg6.setVisible(false);
+
+        if (datePick.getValue() == null){
+            warningMsg7.setVisible(true);
+            badInput = true;
+        }
+        else warningMsg7.setVisible(false);
 
 
-        return badInput;
+
+        return !badInput;
     }
 
     private boolean checkTime(String time){
         return time.matches("^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$");
+    }
+    private boolean checkStations(){
+        if (startChoice.getValue() == null || endChoice.getValue() == null)return false;
+        else if (startChoice.getValue() == endChoice.getValue()){
+            Alert sameChoice = new Alert(Alert.AlertType.ERROR);
+            sameChoice.setTitle("Error");
+            sameChoice.setHeaderText("Start and end station can't be the same one");
+            sameChoice.showAndWait();
+            return false;
+        }
+        else return true;
+
+    }
+
+    private boolean onTwoDays(){
+        return Integer.parseInt(startTime.getText().split(":")[0]) > Integer.parseInt(endTime.getText().split(":")[0]);
     }
 
 
