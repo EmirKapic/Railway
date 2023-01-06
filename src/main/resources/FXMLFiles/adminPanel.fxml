@@ -112,6 +112,11 @@
                         <Font name="Yu Gothic Regular" size="16.0" />
                      </font>
                   </Label>
+                  <Label fx:id="warningMsg31" style="-fx-text-fill: red;" text="Maximum number of tickets is 100" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                     <font>
+                        <Font name="Yu Gothic Regular" size="16.0" />
+                     </font>
+                  </Label>
                </children>
             </GridPane>
             <Button mnemonicParsing="false" onAction="#depAddBtn" text="Add departure" />
