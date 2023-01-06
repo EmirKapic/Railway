@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ba.unsa.etf.rpr.Controllers.RegisteringController">
+   <top>
+      <HBox prefHeight="48.0" prefWidth="600.0" style="-fx-background-color: lightcyan;" BorderPane.alignment="CENTER">
+         <children>
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#goBackBtnClicked" text="Go back">
+               <padding>
+                  <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+               </padding>
+               <HBox.margin>
+                  <Insets left="10.0" top="5.0" />
+               </HBox.margin>
+            </Button>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <GridPane BorderPane.alignment="CENTER">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="10.0" prefWidth="178.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="262.0" minWidth="10.0" prefWidth="144.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="266.0" minWidth="10.0" prefWidth="163.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="First name:">
+               <font>
+                  <Font name="Yu Gothic Regular" size="17.0" />
+               </font>
+            </Label>
+            <Label text="Last name:" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Yu Gothic Regular" size="17.0" />
+               </font>
+            </Label>
+            <Label text="Username:" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Yu Gothic Regular" size="17.0" />
+               </font>
+            </Label>
+            <Label text="Password:" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Yu Gothic Regular" size="17.0" />
+               </font>
+            </Label>
+            <Label text="Repeat password:" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Yu Gothic Regular" size="17.0" />
+               </font>
+            </Label>
+            <TextField fx:id="newName" GridPane.columnIndex="1" />
+            <TextField fx:id="newSurname" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="newUsername" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <PasswordField fx:id="newPass" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <PasswordField fx:id="newPassRepeat" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#registerBtnClicked" prefHeight="33.0" prefWidth="232.0" text="Register" GridPane.columnSpan="2" GridPane.rowIndex="5">
+               <font>
+                  <Font name="Yu Gothic Regular" size="18.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
+            </Button>
+            <Label fx:id="warningMsg1" style="-fx-text-fill: red;" text="Can't be empty" GridPane.columnIndex="2">
+               <font>
+                  <Font name="Yu Gothic Regular" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="warningMsg2" style="-fx-text-fill: red;" text="Can't be empty" GridPane.columnIndex="2" GridPane.rowIndex="1">
+               <font>
+                  <Font name="Yu Gothic Regular" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="warningMsg3" prefHeight="5.0" prefWidth="84.0" style="-fx-text-fill: red;" text="Can't be empty" GridPane.columnIndex="2" GridPane.rowIndex="2">
+               <font>
+                  <Font name="Yu Gothic Regular" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="warningMsg4" style="-fx-text-fill: red;" text="Can't be empty" GridPane.columnIndex="2" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Yu Gothic Regular" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="warningMsg5" style="-fx-text-fill: red;" text="Can't be empty" GridPane.columnIndex="2" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Yu Gothic Regular" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </GridPane>
+   </center>
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets left="30.0" />
+         </BorderPane.margin>
+      </VBox>
+   </left>
+</BorderPane>
