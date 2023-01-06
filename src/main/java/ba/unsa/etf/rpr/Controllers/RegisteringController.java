@@ -1,6 +1,7 @@
 package ba.unsa.etf.rpr.Controllers;
 
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -35,6 +36,12 @@ public class RegisteringController {
     public void registerBtnClicked(ActionEvent actionEvent) {
       if (!checkFields())return;
 
+      if (!newPass.getText().equals(newPassRepeat.getText())){
+          passwordsDontMatch();
+          return;
+      }
+
+      if (usernameTaken())return;
 
     }
 
@@ -77,5 +84,15 @@ public class RegisteringController {
 
 
         return !badInput;
+    }
+
+
+    private void passwordsDontMatch(){
+        warningMsg5.setVisible(true);
+        warningMsg5.setText("Passwords don't match");
+    }
+
+    private boolean usernameTaken(){
+        return true;
     }
 }
