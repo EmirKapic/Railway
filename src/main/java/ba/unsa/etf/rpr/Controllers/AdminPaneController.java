@@ -9,6 +9,8 @@ import javafx.event.EventHandler;
 import javafx.scene.control.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,12 +68,10 @@ public class AdminPaneController {
 
 
 
-        LocalDate start = datePick.getValue();
-        LocalDate end = datePick.getValue();
-
-        if (onTwoDays()) end = end.plusDays(1);
 
 
+        Departures d = setNewDeparture();
+        System.out.println(d);
 
     }
 
@@ -149,6 +149,33 @@ public class AdminPaneController {
         }
         else return true;
 
+    }
+
+    private Departures setNewDeparture(){
+
+        LocalDate start = datePick.getValue();
+        LocalDate end = datePick.getValue();
+
+        if (onTwoDays()) end = end.plusDays(1);
+
+        int startH = Integer.parseInt(startTime.getText().split(":")[0]);
+        int startMin = Integer.parseInt(startTime.getText().split(":")[1]);
+
+        int endH = Integer.parseInt(endTime.getText().split(":")[0]);
+        int endMin = Integer.parseInt(endTime.getText().split(":")[1]);
+
+        int betweenH = endH-startH;
+        if (betweenH < 0)betweenH+=24;
+
+        int betweenMin = endMin - startMin;
+        if (betweenMin < 0) {
+            betweenH--;
+            betweenMin += 60;
+        }
+
+        return new Departures(5, LocalDateTime.of(start, LocalTime.of(startH, startMin)), LocalDateTime.of(end, LocalTime.of(endH, endMin)),
+                betweenH + ":" + betweenMin + ":00",
+                Integer.parseInt(ticketsAvailable.getText()), 1, 2, Integer.parseInt(ticketsAvailable.getText()), " ", " ");
     }
 
     private boolean onTwoDays(){
