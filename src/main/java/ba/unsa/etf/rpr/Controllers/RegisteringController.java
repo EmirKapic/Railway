@@ -1,5 +1,7 @@
 package ba.unsa.etf.rpr.Controllers;
 
+import ba.unsa.etf.rpr.Dao.DaoFactory;
+import ba.unsa.etf.rpr.Domain.Passengers;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
@@ -93,6 +95,15 @@ public class RegisteringController {
     }
 
     private boolean usernameTaken(){
-        return true;
+        Passengers p = DaoFactory.passengersDao().getByUsername(newUsername.getText());
+
+        if (p != null){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Unfortunately your username is already taken. Please try a different one.");
+            alert.showAndWait();
+            return true;
+        }
+        else return false;
     }
 }
