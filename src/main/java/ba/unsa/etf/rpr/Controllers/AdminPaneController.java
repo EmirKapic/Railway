@@ -23,12 +23,14 @@ public class AdminPaneController {
     public Label warningMsg1;
     public Label warningMsg2;
     public Label warningMsg3;
+    public Label warningMsg4;
 
 
     public void initialize(){
         warningMsg1.setVisible(false);
         warningMsg2.setVisible(false);
         warningMsg3.setVisible(false);
+        warningMsg4.setVisible(false);
         try {
             List<String> locations = getAllLocations(DaoFactory.trainStationsDao().getAll());
             startChoice.getItems().addAll(locations);
@@ -51,6 +53,51 @@ public class AdminPaneController {
 
     public void depAddBtn(ActionEvent actionEvent) {
 
+        if (checkFields())return;
+
+
+    }
+
+    private boolean checkFields(){
+        boolean badInput = false;
+        if (!checkTime(startTime.getText())){
+            warningMsg1.setVisible(true);
+            badInput = true;
+        }
+        else warningMsg1.setVisible(false);
+        if (!checkTime(endTime.getText())) {
+            warningMsg2.setVisible(true);
+            badInput = true;
+        }
+        else warningMsg2.setVisible(false);
+        if (!checkTime(length.getText())){
+            warningMsg3.setVisible(true);
+            badInput = true;
+        }
+        else warningMsg3.setVisible(false);
+
+        String tcktsA = ticketsAvailable.getText();
+        try{
+            if (tcktsA == null || tcktsA.isEmpty() || Integer.parseInt(tcktsA) > 100){
+                warningMsg4.setVisible(true);
+                warningMsg4.setText("Maximum number of tickets is 100");
+                badInput = true;
+            }
+            else warningMsg4.setVisible(false);
+        }
+        catch(NumberFormatException e){
+            warningMsg4.setVisible(true);
+            warningMsg4.setText("Please enter a whole number");
+            badInput = true;
+        }
+
+
+
+        return badInput;
+    }
+
+    private boolean checkTime(String time){
+        return time.matches("^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$");
     }
 
 
