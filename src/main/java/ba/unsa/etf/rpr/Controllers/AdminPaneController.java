@@ -68,10 +68,22 @@ public class AdminPaneController {
 
 
 
-
-
         Departures d = setNewDeparture();
-        System.out.println(d);
+        Alert succes = new Alert(Alert.AlertType.INFORMATION);
+        succes.setTitle("Success");
+        succes.setHeaderText("Added departure successfully");
+        succes.showAndWait();
+
+        try {
+            DaoFactory.departuresDao().add(d);
+        } catch (StatementException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("ERROR");
+            alert.setHeaderText("Critical error while adding a new departure! Exiting now");
+            alert.showAndWait();
+            System.exit(1);
+        }
+
 
     }
 
@@ -173,9 +185,19 @@ public class AdminPaneController {
             betweenMin += 60;
         }
 
-        return new Departures(5, LocalDateTime.of(start, LocalTime.of(startH, startMin)), LocalDateTime.of(end, LocalTime.of(endH, endMin)),
-                betweenH + ":" + betweenMin + ":00",
-                Integer.parseInt(ticketsAvailable.getText()), 1, 2, Integer.parseInt(ticketsAvailable.getText()), " ", " ");
+        try {
+            int startID = 0, endID = 0;
+            List<TrainStations> trainStations = DaoFactory.trainStationsDao().getAll();
+            for (TrainStations t : trainStations){
+                if (t.getLocation().equals(startChoice.getValue()))startID = t.getID();
+                if (t.getLocation().equals(endChoice.getValue()))endID = t.getID();
+            }
+            return new Departures(5, LocalDateTime.of(start, LocalTime.of(startH, startMin)), LocalDateTime.of(end, LocalTime.of(endH, endMin)),
+                    betweenH + ":" + betweenMin + ":00",
+                    Integer.parseInt(ticketsAvailable.getText()), startID, endID, Integer.parseInt(ticketsAvailable.getText()), " ", " ");
+        } catch (StatementException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private boolean onTwoDays(){
