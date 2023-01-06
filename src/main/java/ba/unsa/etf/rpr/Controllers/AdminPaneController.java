@@ -110,8 +110,16 @@ public class AdminPaneController {
         else warningMsg3.setVisible(false);
 
         String tcktsA = ticketsAvailable.getText();
+
+
+
         try{
-            if (tcktsA == null || tcktsA.isEmpty() || Integer.parseInt(tcktsA) > 100){
+            if (tcktsA == null || tcktsA.isEmpty()){
+                warningMsg4.setVisible(true);
+                warningMsg4.setText("Please enter a whole number");
+                badInput = true;
+            }
+            else if (Integer.parseInt(tcktsA) > 100){
                 warningMsg4.setVisible(true);
                 warningMsg4.setText("Maximum number of tickets is 100");
                 badInput = true;
