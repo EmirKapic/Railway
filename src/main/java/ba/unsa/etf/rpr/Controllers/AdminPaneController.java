@@ -4,11 +4,10 @@ import ba.unsa.etf.rpr.Dao.DaoFactory;
 import ba.unsa.etf.rpr.Domain.TrainStations;
 import ba.unsa.etf.rpr.Exceptions.StatementException;
 import javafx.event.ActionEvent;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.event.EventHandler;
+import javafx.scene.control.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,12 +30,22 @@ public class AdminPaneController {
         warningMsg2.setVisible(false);
         warningMsg3.setVisible(false);
         try {
+            List<String> locations = getAllLocations(DaoFactory.trainStationsDao().getAll());
+            startChoice.getItems().addAll(locations);
+            endChoice.getItems().addAll(locations);
 
-            startChoice.getItems().addAll(getAllLocations(DaoFactory.trainStationsDao().getAll()));
-            endChoice.getItems().addAll(getAllLocations(DaoFactory.trainStationsDao().getAll()));
+            //This piece of code turns off all cells in the datepicker before today
+            datePick.setDayCellFactory(picker-> new DateCell() {
+                public void updateItem(LocalDate date, boolean empty){
+                    super.updateItem(date, empty);
+                    setDisable(empty || date.compareTo(LocalDate.now()) < 0);
+                }
+            });
+
         } catch (StatementException e) {
             throw new RuntimeException(e);
         }
+
     }
 
 
