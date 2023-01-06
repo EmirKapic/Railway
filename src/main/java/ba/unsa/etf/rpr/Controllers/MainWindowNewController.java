@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -19,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainWindowNewController {
+    public Label warningMsg3;
+    public Label warningMsg1;
+    public Label warningMsg2;
     private Stage stage;
     private Scene scene;
     public ImageView leftImage;
@@ -28,10 +32,6 @@ public class MainWindowNewController {
     private List<TrainStations> stations;
 
     private Passengers user;
-
-    /*public MainWindowNewController(Passengers user){
-        this.user = user;
-    }*/
 
     public void setUser(Passengers user) {
         this.user = user;
@@ -46,6 +46,10 @@ public class MainWindowNewController {
 
 
     public void initialize() throws StatementException {
+        warningMsg1.setVisible(false);
+        warningMsg2.setVisible(false);
+        warningMsg3.setVisible(false);
+
         Image image = new Image("Pictures/railwaytrain.png");
         leftImage.setImage(image);
         image = new Image("Pictures/rightpic2.jpg");
@@ -61,6 +65,8 @@ public class MainWindowNewController {
     }
 
     public void searchButtonClicked(ActionEvent actionEvent) throws IOException {
+        if (!fieldCheck())return;
+        if (!checkStations())return;
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLFiles/departureSearch.fxml"));
         loader.setController(new TicketSearchController(entryChoice.getValue().toString(), endChoice.getValue().toString(), user.getID()));
         Parent root = loader.load();
@@ -80,6 +86,33 @@ public class MainWindowNewController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    private boolean fieldCheck(){
+        boolean badInput = false;
+        if (entryChoice.getValue() == null){
+            warningMsg1.setVisible(true);
+            badInput = true;
+        }
+        else warningMsg1.setVisible(false);
+
+        if (endChoice.getValue() == null){
+            warningMsg2.setVisible(true);
+            badInput = true;
+        }
+        else warningMsg2.setVisible(false);
+
+        return !badInput;
+    }
+
+    private boolean checkStations(){
+        if(entryChoice.getValue() != endChoice.getValue()) {
+            warningMsg3.setVisible(false);
+            return true;
+        }
+        else {
+            warningMsg3.setVisible(true);
+            return false;
+        }
     }
 }
