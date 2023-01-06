@@ -39,6 +39,7 @@ public class Login {
     }
 
     public void loginButtonClick(ActionEvent actionEvent) throws IOException {
+        //The error checking is horribly done here, but it works and I don't have time to make it prettier
         boolean correctFlag = true;
 
         if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty()) {
@@ -46,8 +47,9 @@ public class Login {
             emptyField();
         } //Questionable but lets keep it
 
-        //PassengersDaoSQLImpl psql = new PassengersDaoSQLImpl();
-        Passengers user = DaoFactory.passengersDao().getByUsername(usernameField.getText()); //psql.getByUsername(usernameField.getText());
+        Passengers user = DaoFactory.passengersDao().getByUsername(usernameField.getText());
+
+
 
         if (correctFlag && (user == null || !user.getPassword().equals(passwordField.getText()))) {
             correctFlag = false;
@@ -55,13 +57,23 @@ public class Login {
         }
 
         if (correctFlag){
+            stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+            stage.close();
+
+            Parent root = null;
+            if (usernameField.getText().equals("admin")){
+                root = FXMLLoader.load(getClass().getResource("/FXMLFiles/adminPanel.fxml"));
+                Stage newStage = new Stage();
+                newStage.setScene(new Scene(root));
+                newStage.setResizable(false);
+                newStage.show();
+                return;
+            }
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/FXMLFiles/mainWindowRevamp.fxml"));
-            Parent root = loader.load();
+            root = loader.load();
             MainWindowNewController ctrl = loader.getController();
             ctrl.setUser(user);
 
-            stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
-            stage.close();
 
             Stage newStage = new Stage();
             scene = new Scene(root);
