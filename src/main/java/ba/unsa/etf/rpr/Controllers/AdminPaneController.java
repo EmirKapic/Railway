@@ -55,6 +55,13 @@ public class AdminPaneController {
 
         if (checkFields())return;
 
+        if (startChoice.getValue() == endChoice.getValue()){
+            Alert sameChoice = new Alert(Alert.AlertType.ERROR);
+            sameChoice.setTitle("Error");
+            sameChoice.setHeaderText("Start and end station can't be the same one");
+            sameChoice.showAndWait();
+        }
+
 
     }
 
